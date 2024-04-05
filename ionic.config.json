@@ -1,0 +1,7 @@
+{
+  "name": "pagos-uluterana",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
