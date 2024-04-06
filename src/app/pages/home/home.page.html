@@ -1,0 +1,26 @@
+<app-header></app-header>
+<ion-content>
+  <app-logo></app-logo>
+
+  <ion-card>
+    <ion-card-header style="background: #10143c;">
+      <ion-card-title style="color: #fff">Pagos próximos</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content style="margin-top: 7px;">
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <strong>Ciclo 1 - 2024 Febrero</strong>
+            <p>Vencido hace 2 días</p>
+          </ion-label>
+          <ion-label slot="end">$45</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button (click)="test()">
+    Click me
+  </ion-button>
+</ion-content>

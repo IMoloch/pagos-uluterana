@@ -1,0 +1,13 @@
+<ion-card>
+  <ion-card-header style="background: #10143c;">
+    <ion-card-title style="color: #fff">Bienvenido</ion-card-title>
+  </ion-card-header>
+  <ion-card-content style="margin-top: 7px;">
+    
+    <ng-container *ngTemplateOutlet="template"></ng-container>
+    <ng-template #template>
+      <div> {{ utilsSvc.getContenido() }} </div>
+    </ng-template>
+
+  </ion-card-content>
+</ion-card>
