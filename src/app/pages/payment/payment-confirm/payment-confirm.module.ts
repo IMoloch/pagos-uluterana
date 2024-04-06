@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PaymentConfirmPageRoutingModule } from './payment-confirm-routing.module';
 
 import { PaymentConfirmPage } from './payment-confirm.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PaymentConfirmPageRoutingModule
+    PaymentConfirmPageRoutingModule,
+    SharedModule
   ],
   declarations: [PaymentConfirmPage]
 })

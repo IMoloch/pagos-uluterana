@@ -2,11 +2,8 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-button>
-        <ion-icon name="home"></ion-icon>
-      </ion-button>
       <ion-buttons>
-        <ion-back-button>
+        <ion-back-button *ngIf="backButton" defaultHref="home">
           <ion-icon name="arrow-back"></ion-icon>
         </ion-back-button>
       </ion-buttons>

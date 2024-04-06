@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-payment',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentPage implements OnInit {
 
-  constructor() { }
+  constructor(private utilsSvc: UtilsService) { }
 
   ngOnInit() {
   }

@@ -9,10 +9,6 @@ const routes: Routes = [
     component: PaymentPage
   },
   {
-    path: 'payment-summary',
-    loadChildren: () => import('./payment-summary/payment-summary.module').then( m => m.PaymentSummaryPageModule)
-  },
-  {
     path: 'payment-confirm',
     loadChildren: () => import('./payment-confirm/payment-confirm.module').then( m => m.PaymentConfirmPageModule)
   }

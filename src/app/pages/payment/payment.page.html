@@ -1,13 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>payment</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [backButton]="true"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">payment</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title><strong>Detalles de Transacción</strong></ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <p>Mensualidad Ciclo I - 2024 Marzo</p>
+      <p class="ion-padding-top">Se enviara un correo asociado a la cuenta</p>
+      <p>usu*******2&#64;gmail.com</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-button class="ion-margin" routerLink="payment-confirm" expand="block" fill="clear" shape="round">
+    Confirmar pago
+  </ion-button>
 </ion-content>
