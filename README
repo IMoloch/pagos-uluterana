@@ -1,0 +1,9 @@
+TODO list:
+- Base de datos en MySQL
+- Crear API de la BD con PHP
+- Login Page
+- Perfil page
+- Formulario de tarjeta
+- Loading screen
+- Modal y toast presents
+- Testeo de Stripe

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -12,7 +12,9 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class CustomContainerComponent  implements OnInit {
 
-  constructor(public utilsSvc: UtilsService) { }
+  utilsSvc = inject(UtilsService)
+
+  constructor() { }
 
   ngOnInit() {
     this.utilsSvc.setContenido(`Contenido generado con Servicios`)

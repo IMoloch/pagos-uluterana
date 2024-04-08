@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -8,7 +8,9 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class HomePage implements OnInit {
 
-  constructor(private utilsSvc: UtilsService) { }
+  utilsSvc = inject(UtilsService)
+
+  constructor() { }
 
   ngOnInit() {
   }
