@@ -1,3 +1,10 @@
-<p>
-  custom-input works!
-</p>
+<ion-item>
+  <ion-icon *ngIf="icon" slot="start" name="{{ icon }}"></ion-icon>
+  <ion-input
+    type="{{ type }}"
+    label="{{ label }}"
+    autocomplete="{{ autocomplete }}"
+    labelPlacement="floating"
+  
+    ></ion-input>
+</ion-item>
