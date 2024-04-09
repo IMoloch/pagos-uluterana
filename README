@@ -4,6 +4,6 @@ TODO list:
 - Login Page
 - Perfil page
 - Formulario de tarjeta
-- Loading screen
-- Modal y toast presents
+- Loading Controller (done)
+- Modal, Toast  & Alert Controllers (done)
 - Testeo de Stripe
