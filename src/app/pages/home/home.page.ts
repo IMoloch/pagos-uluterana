@@ -15,8 +15,8 @@ export class HomePage implements OnInit {
   ngOnInit() {
   }
 
-  routerLink() {
-    this.utilsSvc.routerLink("payment")
+  routerLink(url: string) {
+    this.utilsSvc.routerLink(url)
   }
 
 }
