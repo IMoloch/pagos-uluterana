@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { UtilsService } from './services/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  
+  utilsSvc = inject(UtilsService)
+  settings?: object = this.utilsSvc.getFromLocalStorage('settings')
+  
+  constructor() {
+    if (!this.settings) {
+      this.utilsSvc.setInLocalStorage('settings',  {
+        "language": "español",
+        "notification": false
+      })
+    }
+  }
 }

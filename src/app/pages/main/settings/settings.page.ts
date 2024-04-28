@@ -20,11 +20,13 @@ export class SettingsPage implements OnInit {
 
   ngOnInit() {
     const settings = this.utilsSvc.getFromLocalStorage('settings')
-    this.form.setValue({
-      language: settings.language,
-      notification: settings.notification
-    })
-    console.log(settings)
+    if (settings) {
+      this.form.setValue({
+        language: settings.language,
+        notification: settings.notification
+      })
+      console.log(settings)
+    }
   }
 
   saveSettings(){
