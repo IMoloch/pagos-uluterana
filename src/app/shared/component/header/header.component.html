@@ -3,15 +3,15 @@
 
     <ion-buttons slot="start">
       <ion-buttons>
-        <ion-back-button *ngIf="backButton" defaultHref="home">
+        <ion-back-button *ngIf="backButton" defaultHref="main/home">
           <ion-icon name="arrow-back"></ion-icon>
         </ion-back-button>
       </ion-buttons>
     </ion-buttons>
     
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="menu"></ion-icon>
+    <ion-buttons *ngIf="isMain" slot="end">
+      <ion-button color="danger">
+        <ion-icon name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
 
