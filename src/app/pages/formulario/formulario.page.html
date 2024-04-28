@@ -1,0 +1,52 @@
+<app-header [backButton]="true"></app-header>
+
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Formulario de Pago
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Formulario para calcular penalidad -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Mora por atraso, vea detalles abajo.</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Fecha actual: {{ currentDate | date:'medium' }}</p>
+      <p *ngIf="isPenaltyApplicable">
+        Cantidad a pagar: ${{ 45 + penaltyAmount }} (Penalidad ${{ penaltyAmount }})
+      </p>
+      <p *ngIf="!isPenaltyApplicable">
+        Cantidad a pagar: $45 (No aplica penalidad)
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Formulario para pagar -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Información de Pago</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Nombre del Estudiante</ion-label>
+        <ion-input type="text" [(ngModel)]="studentName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Ciclo a Pagar</ion-label>
+        <ion-input type="text" [(ngModel)]="cycleToPay"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Carrera</ion-label>
+        <ion-input type="text" [(ngModel)]="carrera"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botón para pagar -->
+  <ion-button expand="block" (click)="onSubmit()">Pagar</ion-button>
+</ion-content>
