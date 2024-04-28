@@ -98,4 +98,17 @@ export class UtilsService {
   routerLink(url: string) {
     return this.router.navigateByUrl(url)
   }
+
+  setInLocalStorage(key: string, value: any) {
+    return localStorage.setItem(key, JSON.stringify(value))
+  }
+
+  getFromLocalStorage(key: string) {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  }
+
+  deleteFromLocalStorage(key: string) {
+    return localStorage.removeItem(key)
+  }
 }
