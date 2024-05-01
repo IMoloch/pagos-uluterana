@@ -11,6 +11,7 @@ export class PaymentPage implements OnInit {
 
   utilsSvc = inject(UtilsService)
   router = inject(Router)
+  data?: any
 
   currentDate: Date = new Date();
   isPenaltyApplicable: boolean = this.currentDate.getDate() > 30;
@@ -21,7 +22,11 @@ export class PaymentPage implements OnInit {
   carrera: string = ''; 
 
   ngOnInit() {
-    
+    this.utilsSvc.getData().subscribe((data) => this.data = data)
+    this.studentName = this.data.dato.name
+    this.cycleToPay = this.data.dato.ciclo
+    this.carrera = this.data.dato.carrera
+    console.log(this.data)
   }
 
   onSubmit() {

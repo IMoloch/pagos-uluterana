@@ -9,7 +9,7 @@
     <ion-card-content>
       <form [formGroup]="form" (ngSubmit)="saveSettings()" (keypress.enter)="saveSettings()">
         <ion-item>
-            <ion-select formControlName="language" label="Idioma" value="español" interface="popover" placeholder="Selecciona el Idioma">
+            <ion-select formControlName="language" (ionChange)="saveSettings()" label="Idioma" value="español" interface="popover" placeholder="Selecciona el Idioma">
               <ion-select-option value="español">Español</ion-select-option>
               <ion-select-option value="english">English</ion-select-option>
             </ion-select>
@@ -17,9 +17,6 @@
         <ion-item>
           <ion-toggle formControlName="notification" labelPlacement="start" slot="end">Recibir notificaciones</ion-toggle>
         </ion-item>
-        <ion-button class="ion-margin" type="submit" expand="block" fill="clear" shape="round">
-          Guardar
-        </ion-button>
       </form>
     </ion-card-content>
   </ion-card>

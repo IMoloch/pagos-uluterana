@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, AlertOptions, LoadingController, ModalController, ModalOptions, ToastController, ToastOptions } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { AlertController, AlertOptions, LoadingController, ModalController, Moda
 export class UtilsService {
 
   private contenidoActual?: string
+  private data = new BehaviorSubject<object>({})
 
   loadingCtrl = inject(LoadingController)
   modalCtrl = inject(ModalController)
@@ -110,5 +112,13 @@ export class UtilsService {
 
   deleteFromLocalStorage(key: string) {
     return localStorage.removeItem(key)
+  }
+
+  setData(data: object){
+    this.data.next(data)
+  }
+
+  getData(){
+    return this.data.asObservable()
   }
 }
