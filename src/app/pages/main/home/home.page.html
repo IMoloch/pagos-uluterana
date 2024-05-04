@@ -8,10 +8,10 @@
     </ion-card-header>
 
     <ion-card-content style="margin-top: 7px;">
-      <ion-list *ngFor="let dato of data">
-        <ion-item button="true" (click)="routerLink('/payment', dato)">
+      <ion-list *ngFor="let month of months">
+        <ion-item button="true" (click)="routerLink('/payment', month)">
           <ion-label>
-            <strong>Ciclo {{dato.ciclo}} - 2024 Febrero</strong>
+            <strong>Ciclo 1 - 2024</strong>
             <p>Vencido hace 2 días</p>
           </ion-label>
           <ion-label slot="end">$45</ion-label>

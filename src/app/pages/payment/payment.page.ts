@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class PaymentPage implements OnInit {
 
+  firebaseSvc = inject(FirebaseService)
   utilsSvc = inject(UtilsService)
   router = inject(Router)
   data?: any
@@ -17,16 +19,22 @@ export class PaymentPage implements OnInit {
   isPenaltyApplicable: boolean = this.currentDate.getDate() > 30;
   penaltyAmount: number = this.isPenaltyApplicable ? 5 : 0;
 
-  studentName: string = '';
-  cycleToPay: string = '';
-  carrera: string = ''; 
+  studentName?: string;
+  cycleToPay?: string;
+  carrera?: string; 
 
   ngOnInit() {
-    this.utilsSvc.getData().subscribe((data) => this.data = data)
-    this.studentName = this.data.dato.name
-    this.cycleToPay = this.data.dato.ciclo
-    this.carrera = this.data.dato.carrera
-    console.log(this.data)
+    this.utilsSvc.getData().subscribe((data) => {
+      this.data = data
+      this.getMonth(data['mes'])
+    })
+    
+  }
+
+  getMonth(path: string) {
+    this.firebaseSvc.getDocument(path).then(res => {
+      console.log(res);
+    })
   }
 
   onSubmit() {
