@@ -1,5 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { orderBy } from 'firebase/firestore';
+import { orderBy, where } from 'firebase/firestore';
+import { Month } from 'src/app/models/month.model';
+import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -12,34 +14,40 @@ export class HomePage implements OnInit {
 
   firebaseSvc = inject(FirebaseService)
   utilsSvc = inject(UtilsService)
+  user: User
   months = []
-  user?: {}
+
+  currentDate: Date = new Date();
+  semester = {
+    year: this.currentDate.getFullYear(),
+    cycle: this.currentDate.getMonth() < 7 ? 1 : 2 
+  }
+  
 
   ngOnInit() {
     this.user = this.utilsSvc.getFromLocalStorage('user')
     this.getMonths()
+    console.log(this.semester);
+    
   }
 
   ionViewWillEnter() {
-    console.log(this.user);
   }
 
-  routerLink(url: string, month: object) {
-    console.log(month)
-    this.utilsSvc.setData( month )
+  routerLink(url: string, month: Month) {
+    this.utilsSvc.setData( month as Month )
     this.utilsSvc.routerLink(url)
   }
 
   // OBTENER MESES DEL USUARIO
   getMonths() {
-    let path = `users/tTgIAas7xjJrvU3cc68E/semesters/ciclo1/payments`
+    let path = `users/${this.user.uid}/semesters/1-2024/payments`
     let query = [
-      orderBy('dueDate','asc')
+      orderBy('dueDate','asc'),
     ]
 
     let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
       next: (res: any) => {
-        console.log(res)
         this.months = res
         sub.unsubscribe()
       }

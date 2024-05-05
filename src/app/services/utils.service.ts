@@ -2,31 +2,25 @@ import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, AlertOptions, LoadingController, ModalController, ModalOptions, ToastController, ToastOptions } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
+import { Month } from '../models/month.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
-
-  private contenidoActual?: string
-  private data = new BehaviorSubject<object>({})
-
+  
+  data: Month
+  
   loadingCtrl = inject(LoadingController)
   modalCtrl = inject(ModalController)
   toastCtrl = inject(ToastController)
   alertCtrl = inject(AlertController)
   router = inject(Router)
-
-  constructor() { }
-
-  getContenido() {
-    return this.contenidoActual
-  }
-
-  setContenido(nuevoContenido: any) {
-    this.contenidoActual = nuevoContenido
-  }
-
+  
+    routerLink(url: string) {
+      return this.router.navigateByUrl(url)
+    }
+  
   /* Template del Loading
     {
       message: "Producto eliminado exitosamente",
@@ -97,10 +91,7 @@ export class UtilsService {
     await alert.present()
   }
 
-  routerLink(url: string) {
-    return this.router.navigateByUrl(url)
-  }
-
+  // --------- FUNCIONES DEL LOCAL STORAGE ---------
   setInLocalStorage(key: string, value: any) {
     return localStorage.setItem(key, JSON.stringify(value))
   }
@@ -114,11 +105,12 @@ export class UtilsService {
     return localStorage.removeItem(key)
   }
 
-  setData(data: object){
-    this.data.next(data)
+  // --------- GET Y SET DEL MES ---------
+  setData(data: Month){
+    this.data = data
   }
 
   getData(){
-    return this.data.asObservable()
+    return this.data as Month
   }
 }

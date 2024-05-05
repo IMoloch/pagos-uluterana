@@ -9,10 +9,10 @@
     <ion-card-content>
       <p>Fecha actual: {{ currentDate | date:'medium' }}</p>
       <p *ngIf="isPenaltyApplicable">
-        Cantidad a pagar: ${{ 45 + penaltyAmount }} (Penalidad ${{ penaltyAmount }})
+        Cantidad a pagar: {{ month.totalFee | currency : 'USD' : 'symbol' : '2.0-2'}} (Mora ${{ month.charges[1]['fee'] }})
       </p>
       <p *ngIf="!isPenaltyApplicable">
-        Cantidad a pagar: $45 (No aplica penalidad)
+        Cantidad a pagar: {{ month.totalFee | currency : 'USD' : 'symbol' : '2.0-2'}} (No aplica Mora)
       </p>
     </ion-card-content>
   </ion-card>
@@ -23,18 +23,8 @@
       <ion-card-title>Información de Pago</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Nombre del Estudiante</ion-label>
-        <ion-input type="text" [(ngModel)]="studentName"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Ciclo a Pagar</ion-label>
-        <ion-input type="text" [(ngModel)]="cycleToPay"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Carrera</ion-label>
-        <ion-input type="text" [(ngModel)]="carrera"></ion-input>
-      </ion-item>
+      {{ user.name }}
+      {{ user.email }}
     </ion-card-content>
   </ion-card>
   
