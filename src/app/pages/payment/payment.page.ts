@@ -1,5 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Month } from 'src/app/models/month.model';
+import { User } from 'src/app/models/user.model';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -9,22 +12,37 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class PaymentPage implements OnInit {
 
+  firebaseSvc = inject(FirebaseService)
   utilsSvc = inject(UtilsService)
   router = inject(Router)
+  user: User
+  month: Month
+  isPenaltyApplicable?: boolean
 
   currentDate: Date = new Date();
-  isPenaltyApplicable: boolean = this.currentDate.getDate() > 30;
-  penaltyAmount: number = this.isPenaltyApplicable ? 5 : 0;
-
-  studentName: string = '';
-  cycleToPay: string = '';
-  carrera: string = ''; 
 
   ngOnInit() {
-    
+    this.user = this.utilsSvc.getFromLocalStorage('user')
+    this.getFee()
+    this.getPenalty()
   }
 
-  onSubmit() {
-    this.router.navigateByUrl('/payment');
+  ionViewWillLeave() {
+    delete this.month.totalFee
   }
+
+  getFee(){
+    this.month = this.utilsSvc.getData()
+    let totalFee = this.month.charges.reduce((accumulator, currentNumber) => {
+      return accumulator + currentNumber.fee
+    }, 0)
+    this.month.totalFee = totalFee
+  }
+
+  getPenalty() {    
+    const dueDate = new Date(this.month.dueDate)
+    this.isPenaltyApplicable = this.currentDate > dueDate;
+  }
+
+
 }
