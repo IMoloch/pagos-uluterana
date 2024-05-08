@@ -18,7 +18,7 @@ export class FirebaseService {
 
   constructor() { }
 
-   // ====================================== BASE DE DATOS =======================================
+  // ====================================== BASE DE DATOS =======================================
 
   // =================== OBTENER COLECCION ====================
   getCollectionData(path: string, collectionQuery?: any) {
@@ -39,6 +39,11 @@ export class FirebaseService {
   // =================== ELIMINAR UN DOCUMENTO ====================
   deleteDocument(path: string) {
     return deleteDoc(doc(getFirestore(), path))
+  }
+
+  // =================== AGREGAR UN DOCUMENTO ====================
+  addDocument(path: string, data: any) {
+    return addDoc(collection(getFirestore(), path), data)
   }
 
   // =================== OBTENER UN DOCUMENTO ====================

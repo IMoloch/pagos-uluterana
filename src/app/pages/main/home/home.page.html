@@ -3,11 +3,11 @@
   <app-logo></app-logo>
 
   <ion-card>
-    <ion-card-header style="background: #10143c;">
-      <ion-card-title style="color: #fff">Pagos próximos</ion-card-title>
+    <ion-card-header>
+      <ion-card-title>Pagos próximos</ion-card-title>
     </ion-card-header>
 
-    <ion-card-content style="margin-top: 7px;">
+    <ion-card-content>
       <ion-list *ngFor="let month of months">
         <ion-item button="true" (click)="routerLink('/payment', month)">
           <ion-label>

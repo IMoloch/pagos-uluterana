@@ -1,0 +1,47 @@
+<app-header [isModal]="true" title="{{ card ? 'Actualizar Tarjeta' : 'Agregar Tarjeta' }}"></app-header>
+
+<ion-content>
+  <div class="d-flex-center">
+    <form [formGroup]="form" class="ion-padding ion-text-center" (ngSubmit)="submit()">
+
+      <!-- NUMEROS DE TARJETA -->
+      <app-custom-input [control]="form.controls.number" type="number" label="Número de tarjeta"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.number.errors && form.controls.number.touched">
+        <div *ngIf="form.controls.number.errors?.['required']">Este campo es requerido</div>
+      </div>
+      <div class="validators" *ngIf="form.controls.number.errors && form.controls.number.touched">
+        <div *ngIf="form.controls.number.errors?.['minlength']">El numero de la tarjeta debe ser minimo 13 digitos</div>
+      </div>
+
+      <!-- NOMBRE PROPIETARIO -->
+      <app-custom-input [control]="form.controls.name" type="string" label="Nombre de propietario"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.number.errors && form.controls.number.touched">
+        <div *ngIf="form.controls.number.errors?.['required']">Este campo es requerido</div>
+      </div>
+
+      <!-- FECHA DE EXPIRACIÓN -->
+      <app-custom-input [control]="form.controls.expDate" type="string" label="Fecha de expiración"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.expDate.errors && form.controls.expDate.touched">
+        <div *ngIf="form.controls.expDate.errors?.['required']">Este campo es requerido</div>
+      </div>
+
+      <!-- CVV -->
+      <app-custom-input [control]="form.controls.cvv" type="number" label="CVV"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.cvv.errors && form.controls.cvv.touched">
+        <div *ngIf="form.controls.cvv.errors?.['required']">Este campo es requerido</div>
+      </div>
+      <div class="validators" *ngIf="form.controls.cvv.errors && form.controls.cvv.touched">
+        <div *ngIf="form.controls.cvv.errors?.['minlength']">El CVV debe ser de 3-4 digitos</div>
+      </div>
+
+      <!-- BOTON DE SUBMIT -->
+      <ion-button class="ion-margin" type="submit" [disabled]="form.invalid">
+        {{ card ? 'Actualizar Tarjeta' : 'Agregar Tarjeta' }}
+      </ion-button>
+      <!-- BOTON DE ELIMINAR -->
+      <ion-button *ngIf="card" color="danger" type="button" class="ion-margin" (click)="confirmDeleteProduct()">
+        Eliminar Tarjeta
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

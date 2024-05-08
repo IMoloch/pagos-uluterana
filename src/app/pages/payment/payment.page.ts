@@ -31,14 +31,18 @@ export class PaymentPage implements OnInit {
     delete this.month.totalFee
   }
 
+  // OBTENER LA SUMA DE LOS CARGOS DEL MES
   getFee(){
     this.month = this.utilsSvc.getData()
     let totalFee = this.month.charges.reduce((accumulator, currentNumber) => {
       return accumulator + currentNumber.fee
     }, 0)
     this.month.totalFee = totalFee
+    console.log(this.month);
+    
   }
 
+  // DETERMINA SI SE ESTA APLICANDO UN RECARGO POR MORA
   getPenalty() {    
     const dueDate = new Date(this.month.dueDate)
     this.isPenaltyApplicable = this.currentDate > dueDate;

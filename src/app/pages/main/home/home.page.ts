@@ -15,7 +15,7 @@ export class HomePage implements OnInit {
   firebaseSvc = inject(FirebaseService)
   utilsSvc = inject(UtilsService)
   user: User
-  months = []
+  months: Month[] = []
 
   currentDate: Date = new Date();
   semester = {
@@ -26,12 +26,10 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.user = this.utilsSvc.getFromLocalStorage('user')
-    this.getMonths()
-    console.log(this.semester);
-    
   }
 
   ionViewWillEnter() {
+    this.getMonths()
   }
 
   routerLink(url: string, month: Month) {
@@ -49,6 +47,7 @@ export class HomePage implements OnInit {
     let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
       next: (res: any) => {
         this.months = res
+        console.log(this.months);
         sub.unsubscribe()
       }
     })
