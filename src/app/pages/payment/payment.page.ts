@@ -39,7 +39,6 @@ export class PaymentPage implements OnInit {
     }, 0)
     this.month.totalFee = totalFee
     console.log(this.month);
-    
   }
 
   // DETERMINA SI SE ESTA APLICANDO UN RECARGO POR MORA

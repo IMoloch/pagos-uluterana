@@ -12,4 +12,3 @@ export interface Charge {
     description: string
     fee: number
 }
-

@@ -14,7 +14,7 @@
             <strong>Ciclo {{ semester.cycle }} - {{ semester.year }} {{ month.id | uppercase }}</strong>
             <p>Vence: {{ month.dueDate | date }}</p>
           </ion-label>
-          <!-- <ion-label slot="end">{{ month.charges['fee'] | currency : 'USD' : 'symbol' : '2.0-2' }}</ion-label> -->
+          <ion-label slot="end">{{ month.totalFee | currency : 'USD' : 'symbol' : '2.0-2' }}</ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>

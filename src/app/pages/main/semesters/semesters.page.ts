@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { orderBy, where } from 'firebase/firestore';
 import { Month } from 'src/app/models/month.model';
 import { User } from 'src/app/models/user.model';
@@ -6,43 +7,51 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: 'app-semesters',
+  templateUrl: './semesters.page.html',
+  styleUrls: ['./semesters.page.scss'],
 })
-export class HomePage implements OnInit {
+export class SemestersPage implements OnInit {
 
   firebaseSvc = inject(FirebaseService)
   utilsSvc = inject(UtilsService)
   user: User
+  semesters: any[] = []
   months: Month[] = []
 
-  currentDate: Date = new Date();
-  semester = {
-    year: this.currentDate.getFullYear(),
-    cycle: this.currentDate.getMonth() < 7 ? 1 : 2 
-  }
-  
+  form = new FormGroup({
+    semester: new FormControl(),
+  })
 
   ngOnInit() {
     this.user = this.utilsSvc.getFromLocalStorage('user')
   }
-
+  
   ionViewWillEnter() {
-    this.getMonths()
+    this.getSemesters()
   }
 
-  routerLink(url: string, month: Month) {
-    this.utilsSvc.setData( month as Month )
-    this.utilsSvc.routerLink(url)
+  // OBTENER LA LISTA DE CICLOS DE ESTUDIANTE
+  getSemesters() {
+    let path = `users/${this.user.uid}/semesters`
+    let query = [
+      orderBy('year','desc'),
+      orderBy('cycle','desc')
+    ]
+
+    let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
+      next: (res: any) => {
+        this.semesters = res
+        sub.unsubscribe()
+      }
+    })
   }
 
   // OBTENER MESES DEL USUARIO
   getMonths() {
-    let path = `users/${this.user.uid}/semesters/1-2024/payments`
+    let path = `users/${this.user.uid}/semesters/${this.form.value.semester}/payments`
     let query = [
       orderBy('dueDate','asc'),
-      where('paid',"==",false)
     ]
 
     let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
