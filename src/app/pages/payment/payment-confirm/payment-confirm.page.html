@@ -7,12 +7,11 @@
         <ion-card-title><strong>Confirmación de pago</strong></ion-card-title>
     </ion-card-header>
     <ion-card-content>
-        Awesome content
+        confirma tu pago
     </ion-card-content>
 </ion-card>
 
-
-  <ion-button class="ion-margin" routerLink="payment-confirm" expand="block" fill="clear" shape="round">
-    Confirmar pago
-  </ion-button>
+<ion-button class="ion-margin" (click)="generarPDF()" expand="block" fill="clear" shape="round">
+  ticket
+</ion-button>
 </ion-content>
