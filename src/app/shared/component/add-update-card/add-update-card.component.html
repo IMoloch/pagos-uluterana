@@ -1,16 +1,20 @@
 <app-header [isModal]="true" title="{{ card ? 'Actualizar Tarjeta' : 'Agregar Tarjeta' }}"></app-header>
 
 <ion-content>
-  <div class="d-flex-center">
+  <div>
     <form [formGroup]="form" class="ion-padding ion-text-center" (ngSubmit)="submit()">
 
       <!-- NUMEROS DE TARJETA -->
-      <app-custom-input [control]="form.controls.number" type="number" label="Número de tarjeta"></app-custom-input>
+      <app-custom-input [control]="form.controls.number" type="string" inputmode="numeric" label="Número de tarjeta"
+        (ionInput)="addSpaces($event)" pattern="\d{4} \d{4} \d{4} \d{4}"></app-custom-input>
       <div class="validators" *ngIf="form.controls.number.errors && form.controls.number.touched">
         <div *ngIf="form.controls.number.errors?.['required']">Este campo es requerido</div>
       </div>
       <div class="validators" *ngIf="form.controls.number.errors && form.controls.number.touched">
-        <div *ngIf="form.controls.number.errors?.['minlength']">El numero de la tarjeta debe ser minimo 13 digitos</div>
+        <div *ngIf="form.controls.number.errors?.['minlength']">El numero de la tarjeta debe ser minimo 15 digitos</div>
+      </div>
+      <div class="validators" *ngIf="form.controls.number.errors && form.controls.number.touched">
+        <div *ngIf="form.controls.number.errors?.['maxlength']">El numero de la tarjeta debe ser máximo 16 digitos</div>
       </div>
 
       <!-- NOMBRE PROPIETARIO -->
@@ -20,18 +24,28 @@
       </div>
 
       <!-- FECHA DE EXPIRACIÓN -->
-      <app-custom-input [control]="form.controls.expDate" type="string" label="Fecha de expiración"></app-custom-input>
+      <app-custom-input [control]="form.controls.expDate" type="string" inputmode="numeric" label="Fecha de expiración"
+        (ionInput)="addSlash($event)" pattern="\d{4}/\d{2}"></app-custom-input>
       <div class="validators" *ngIf="form.controls.expDate.errors && form.controls.expDate.touched">
         <div *ngIf="form.controls.expDate.errors?.['required']">Este campo es requerido</div>
       </div>
+      <div class="validators" *ngIf="form.controls.expDate.errors && form.controls.expDate.touched">
+        <div *ngIf="form.controls.expDate.errors?.['minlength']">Este campo es requerido</div>
+      </div>
+      <div class="validators" *ngIf="form.controls.expDate.errors && form.controls.expDate.touched">
+        <div *ngIf="form.controls.expDate.errors?.['maxlength']">Este campo es requerido</div>
+      </div>
 
       <!-- CVV -->
-      <app-custom-input [control]="form.controls.cvv" type="number" label="CVV"></app-custom-input>
+      <app-custom-input *ngIf="!card" [control]="form.controls.cvv" type="string" label="CVV" pattern="[0-9]*"></app-custom-input>
       <div class="validators" *ngIf="form.controls.cvv.errors && form.controls.cvv.touched">
         <div *ngIf="form.controls.cvv.errors?.['required']">Este campo es requerido</div>
       </div>
       <div class="validators" *ngIf="form.controls.cvv.errors && form.controls.cvv.touched">
         <div *ngIf="form.controls.cvv.errors?.['minlength']">El CVV debe ser de 3-4 digitos</div>
+      </div>
+      <div class="validators" *ngIf="form.controls.cvv.errors && form.controls.cvv.touched">
+        <div *ngIf="form.controls.cvv.errors?.['maxlength']">El CVV debe ser de 3-4 digitos</div>
       </div>
 
       <!-- BOTON DE SUBMIT -->
