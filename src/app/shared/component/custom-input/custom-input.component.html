@@ -5,6 +5,12 @@
     label="{{ label }}"
     autocomplete="{{ autocomplete }}"
     labelPlacement="floating"
+    [formControl]="control"
   
     ></ion-input>
+
+    <ion-button *ngIf="isPassword" (click)="showOrHidePassword()" slot="end" shape="round">
+      <ion-icon slot="icon-only" [name]="hide ? 'eye-outline': 'eye-off-outline' " ></ion-icon>
+    </ion-button>
+
 </ion-item>

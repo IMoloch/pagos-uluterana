@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, AlertOptions, LoadingController, ModalController, ModalOptions, ToastController, ToastOptions } from '@ionic/angular';
+import { AlertController, AlertOptions, LoadingController, LoadingOptions, ModalController, ModalOptions, ToastController, ToastOptions } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { Month } from '../models/month.model';
 
@@ -32,6 +32,16 @@ export class UtilsService {
   */
   loading() {
     return this.loadingCtrl.create({ spinner: 'crescent' })
+  }
+
+  async presentLoading(opts?: LoadingOptions) {
+    const loading = await this.loadingCtrl.create(opts);
+    await loading.present();
+  }
+
+
+  async dismissLoading() {
+    return await this.loadingCtrl.dismiss();
   }
 
   /* Template del Toast
