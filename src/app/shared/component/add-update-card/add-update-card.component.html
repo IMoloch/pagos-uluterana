@@ -37,7 +37,7 @@
       </div>
 
       <!-- CVV -->
-      <app-custom-input *ngIf="!card" [control]="form.controls.cvv" type="string" label="CVV" pattern="[0-9]*"></app-custom-input>
+      <app-custom-input *ngIf="!card" [control]="form.controls.cvv" type="string" label="CVV" pattern="[0-9]*" (ionInput)="limitCVV($event)"></app-custom-input>
       <div class="validators" *ngIf="form.controls.cvv.errors && form.controls.cvv.touched">
         <div *ngIf="form.controls.cvv.errors?.['required']">Este campo es requerido</div>
       </div>

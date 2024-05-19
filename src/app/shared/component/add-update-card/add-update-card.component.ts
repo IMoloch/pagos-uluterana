@@ -16,10 +16,10 @@ export class AddUpdateCardComponent implements OnInit {
 
   form = new FormGroup({
     id: new FormControl(''),
-    number: new FormControl('', [Validators.required, Validators.minLength(18), Validators.maxLength(19)]),
-    name: new FormControl('', [Validators.required]),
-    expDate: new FormControl('', [Validators.required, Validators.minLength(7), Validators.maxLength(7)]),
-    cvv: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]),
+    number: new FormControl('1111 1111 1111 1111', [Validators.required, Validators.minLength(18), Validators.maxLength(19)]),
+    name: new FormControl('Javier Rivera', [Validators.required]),
+    expDate: new FormControl('2024/06', [Validators.required, Validators.minLength(7), Validators.maxLength(7)]),
+    cvv: new FormControl('1111', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]),
   })
 
   firebaseSvc = inject(FirebaseService)
@@ -29,8 +29,6 @@ export class AddUpdateCardComponent implements OnInit {
   ngOnInit() {
     this.user = this.utilsSvc.getFromLocalStorage('user')
     if (this.card) this.form.setValue(this.card)
-    console.log(this.card);
-
   }
 
   ionViewWillLeave() {
@@ -38,7 +36,7 @@ export class AddUpdateCardComponent implements OnInit {
   }
 
   submit() {
-    if (this.form.valid) {
+    if (this.isValidDate()) {
       if (this.card) this.updateCard()
       else this.createCard()
     }
@@ -49,8 +47,10 @@ export class AddUpdateCardComponent implements OnInit {
     let path = `users/${this.user.uid}/cards`
     const loading = await this.utilsSvc.loading()
     await loading.present()
-
+    
+    this.form.value.number = this.form.value.number.split(' ').join('')
     delete this.form.value.id
+    
 
     this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
       this.utilsSvc.dismissModal({
@@ -111,7 +111,7 @@ export class AddUpdateCardComponent implements OnInit {
   }
 
   // -------- ELIMINACION DE UNA TARJETA --------
-      // ALERTA DE CONFIRMACION DE TARJETA
+  // ALERTA DE CONFIRMACION DE TARJETA
   async confirmDeleteProduct() {
     this.utilsSvc.presentAlert({
       header: 'Eliminar Tarjeta!',
@@ -130,7 +130,7 @@ export class AddUpdateCardComponent implements OnInit {
       ]
     })
   }
-      // ELIMINACION DE TARJETA
+  // ELIMINACION DE TARJETA
   async deleteProduct() {
     let path = `users/${this.user.uid}/cards/${this.card.id}`
 
@@ -190,5 +190,43 @@ export class AddUpdateCardComponent implements OnInit {
       value = value.substring(0, 19)
     }
     this.form.patchValue({ number: value })
+  }
+
+  // LIMITA EL CVV A 4 DIGITOS
+  limitCVV(event: any) {
+    let value = event.target.value
+    if (value.length > 4) {
+      value = value.substring(0, 4)
+      this.form.patchValue({ cvv: value })
+    }
+  }
+
+  // VALIDA QUE LA FECHA SEA VALIDA Y NO ESTE VENCIDA
+  isValidDate() {
+    const currentDate = new Date()
+    const currentMonth = currentDate.getMonth() + 1
+    const currentYear = currentDate.getFullYear()
+    const [year, month] = this.form.value.expDate.split('/').map(Number)
+    const regex = /^\d{4}\/(0[1-9]|1[0-2])$/
+    
+    if (!regex.test(this.form.value.expDate)) {
+      this.utilsSvc.presentToast({
+        message: "Formato de fecha no valido, ingrese una fecha valida",
+        duration: 1500,
+        color: 'danger',
+        position: 'middle'
+      })
+      return false
+    }
+    if (year < currentYear || year === currentYear && month < currentMonth) {
+      this.utilsSvc.presentToast({
+        message: "La fecha ingresada esta vencida",
+        duration: 1500,
+        color: 'danger',
+        position: 'middle'
+      })
+      return false
+    }
+    return true
   }
 }
