@@ -16,10 +16,10 @@ export class AddUpdateCardComponent implements OnInit {
 
   form = new FormGroup({
     id: new FormControl(''),
-    number: new FormControl('1111 1111 1111 1111', [Validators.required, Validators.minLength(18), Validators.maxLength(19)]),
-    name: new FormControl('Javier Rivera', [Validators.required]),
-    expDate: new FormControl('2024/06', [Validators.required, Validators.minLength(7), Validators.maxLength(7)]),
-    cvv: new FormControl('1111', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]),
+    number: new FormControl('', [Validators.required, Validators.minLength(18), Validators.maxLength(19)]),
+    name: new FormControl('', [Validators.required]),
+    expDate: new FormControl('', [Validators.required, Validators.minLength(7), Validators.maxLength(7)]),
+    cvv: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]),
   })
 
   firebaseSvc = inject(FirebaseService)
@@ -48,10 +48,8 @@ export class AddUpdateCardComponent implements OnInit {
     const loading = await this.utilsSvc.loading()
     await loading.present()
     
-    this.form.value.number = this.form.value.number.split(' ').join('')
     delete this.form.value.id
     
-
     this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
       this.utilsSvc.dismissModal({
         success: true
