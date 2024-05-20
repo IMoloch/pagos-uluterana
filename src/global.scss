@@ -44,3 +44,40 @@ ion-button {
     --border-radius: 8px;
     --color: #fff;
 }
+
+ion-card {
+
+    ion-card-header {
+        --background: #10143c;
+    }
+
+    ion-card-title {
+        color: #fff;
+    }
+
+    ion-card-content {
+        margin-top: 7px;
+    }
+}
+
+.d-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.validators {
+    color: var(--ion-color-danger);
+    font-size: 13px;
+    text-align: center;
+}
+
+@media (min-width: 769px) {
+    .auth-form {
+        width: 500px;
+    }
+
+    .add-update-modal {
+        --height: 680px;
+    }
+}

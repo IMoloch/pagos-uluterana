@@ -1,13 +1,36 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [isMain]="true" title="Perfil"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-icon slot="end" name="card"></ion-icon>
+      <ion-card-title>Mis Tarjetas</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- NO HAY TARJETAS REGISTRADAS -->
+      <ion-label *ngIf="!cards.length" class="ion-text-center">
+        <ion-icon name="information-circle"></ion-icon>
+        No ha registrado ninguna Tarjeta
+      </ion-label>
+      <!-- LISTADO DE LAS TARJETAS -->
+      <ion-list *ngFor="let card of cards">
+        <ion-item button="true" (click)="addUpdateCard(card)">
+          <ion-label>
+            {{ card.number }} - EXP {{ card.expDate }}
+            <p>{{ card.name }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <!-- BOTON PARA AÑADIR NUEVA TARJETA -->
+      <ion-item button="true" (click)="addUpdateCard()">
+        <ion-label>
+          <ion-icon slot="start" name="add"></ion-icon>
+          Agregar Nueva Tarjeta
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
