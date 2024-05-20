@@ -1,7 +1,7 @@
 export interface Card {
     id: string
-    number: number
+    number: string
     name: string
     expDate: string
-    cvv: number
+    cvv: string
 }
