@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.user = this.utilsSvc.getFromLocalStorage('user')
   }
-
+  
   ionViewWillEnter() {
     this.getMonths()
   }

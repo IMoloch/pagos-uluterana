@@ -27,10 +27,6 @@ export class PaymentPage implements OnInit {
     this.getPenalty()
   }
 
-  ionViewWillLeave() {
-    delete this.month.totalFee
-  }
-
   // OBTENER LA SUMA DE LOS CARGOS DEL MES
   getFee(){
     this.month = this.utilsSvc.getData()
