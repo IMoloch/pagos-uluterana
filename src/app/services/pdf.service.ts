@@ -10,13 +10,16 @@ export class PdfService {
 
   generarPdf(htmlContent: string, filename: string, width: number, height: number) {
     const doc = new jsPDF({
-      unit: 'mm',
+      unit: 'px',
       format: [width, height] // Establece el tamaño del papel
     });
     
     doc.html(htmlContent, {
       callback: function (pdf) {
-        pdf.save(filename + '.pdf');
+        const pdfBlob = pdf.output('blob')
+        const url = URL.createObjectURL(pdfBlob)
+        window.open(url, '_blank')
+        // pdf.save(filename + '.pdf');
       }
     });
   }
