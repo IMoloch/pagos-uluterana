@@ -1,0 +1,22 @@
+<app-header [isMain]="true" title="Inicio"></app-header>
+<ion-content>
+  <app-logo></app-logo>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Pagos próximos</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list *ngFor="let month of months">
+        <ion-item button="true" (click)="routerLink('/payment', month)">
+          <ion-label>
+            <strong>Ciclo {{ semester.cycle }} - {{ semester.year }} {{ month.id | uppercase }}</strong>
+            <p>Vence: {{ month.dueDate | date }}</p>
+          </ion-label>
+          <ion-label slot="end">{{ month.totalFee | currency : 'USD' : 'symbol' : '2.0-2' }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

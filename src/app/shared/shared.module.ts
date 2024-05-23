@@ -5,8 +5,7 @@ import { CustomInputComponent } from './component/custom-input/custom-input.comp
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogoComponent } from './component/logo/logo.component';
-import { CustomContainerComponent } from './component/custom-container/custom-container.component';
-
+import { AddUpdateCardComponent } from './component/add-update-card/add-update-card.component';
 
 
 @NgModule({
@@ -14,13 +13,14 @@ import { CustomContainerComponent } from './component/custom-container/custom-co
     HeaderComponent,
     CustomInputComponent,
     LogoComponent,
-    CustomContainerComponent
+    AddUpdateCardComponent,
   ],
   exports: [
     HeaderComponent,
     CustomInputComponent,
     LogoComponent,
-    CustomContainerComponent
+    AddUpdateCardComponent,
+    ReactiveFormsModule
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,50 @@
+<app-header [isMain]="true" title="Detalles de Ciclo"></app-header>
+
+<ion-content>
+
+  <form [formGroup]="form" (ngSubmit)="getMonths()" (keypress.enter)="getMonths()">
+    <ion-item class="ion-margin">
+      <ion-select formControlName="semester" (ionChange)="getMonths()" label="Ciclo" placeholder="Selecciona Ciclo"
+        interface="popover" value="semester">
+        <ion-select-option *ngFor="let semester of semesters" value="{{ semester.id }}">{{semester.id}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Meses</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content class="ion-margin">
+      <ion-list *ngFor="let month of months">
+        <ion-accordion-group>
+          <ion-accordion value="{{ month.id }}">
+
+            <ion-item slot="header">
+              <ion-label>{{ month.id | uppercase }} - {{ month.paid ? "PAGADO" : "PENDIENTE" }}</ion-label>
+                <ion-label slot="end">{{ month.totalFee | currency : 'USD' : 'symbol' : '2.0-2' }}</ion-label>
+            </ion-item>
+
+            <!-- SI YA SE HA PAGADO -->
+            <ion-item *ngIf="month.paid" button="true" slot="content">
+              <ion-label>
+                <p> {{ month.paidDate }}</p>
+                <p>Pulsa para ver comprobante de pago</p>
+              </ion-label>
+            </ion-item>
+
+            <!-- SI NO SE HA PAGADO -->
+            <ion-item *ngIf="!month.paid" button="true" slot="content">
+              <ion-label>
+                <p> Aun no se ha realizado el pago de este mes</p>
+                <p>Realizalo antes de: {{ month.dueDate | date }} para evitar mora</p>
+              </ion-label>
+            </ion-item>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

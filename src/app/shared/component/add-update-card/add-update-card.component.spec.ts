@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CustomContainerComponent } from './custom-container.component';
+import { AddUpdateCardComponent } from './add-update-card.component';
 
-describe('CustomContainerComponent', () => {
-  let component: CustomContainerComponent;
-  let fixture: ComponentFixture<CustomContainerComponent>;
+describe('AddUpdateCardComponent', () => {
+  let component: AddUpdateCardComponent;
+  let fixture: ComponentFixture<AddUpdateCardComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomContainerComponent ],
+      declarations: [ AddUpdateCardComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CustomContainerComponent);
+    fixture = TestBed.createComponent(AddUpdateCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

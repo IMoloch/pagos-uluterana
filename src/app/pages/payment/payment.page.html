@@ -1,18 +1,33 @@
-<app-header [backButton]="true"></app-header>
-
+<app-header [backButton]="true" title="Detalle de Pago"></app-header>
 
 <ion-content>
+  <!-- Formulario para calcular penalidad -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title><strong>Detalles de Transacción</strong></ion-card-title>
+      <ion-card-title>Mora por atraso, vea detalles abajo.</ion-card-title>
     </ion-card-header>
-    
     <ion-card-content>
-      <p>Mensualidad Ciclo I - 2024 Marzo</p>
-      <p class="ion-padding-top">Se enviara un correo asociado a la cuenta</p>
-      <p>noe*******2&#64;gmail.com</p>
+      <p>Fecha actual: {{ currentDate | date:'medium' }}</p>
+      <p *ngIf="isPenaltyApplicable">
+        Cantidad a pagar: {{ month.totalFee | currency : 'USD' : 'symbol' : '2.0-2'}} (Mora ${{ month.charges[1]['fee'] }})
+      </p>
+      <p *ngIf="!isPenaltyApplicable">
+        Cantidad a pagar: {{ month.totalFee | currency : 'USD' : 'symbol' : '2.0-2'}} (No aplica Mora)
+      </p>
     </ion-card-content>
   </ion-card>
+
+  <!-- Formulario para pagar -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Información de Pago</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ user.name }}
+      {{ user.email }}
+    </ion-card-content>
+  </ion-card>
+  
   <ion-button class="ion-margin" routerLink="payment-confirm" expand="block" fill="clear" shape="round">
     Confirmar pago
   </ion-button>
