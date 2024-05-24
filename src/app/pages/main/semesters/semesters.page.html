@@ -11,31 +11,32 @@
     </ion-item>
   </form>
 
-  <ion-card>
+  <ion-card *ngIf="form.value.semester">
     <ion-card-header>
       <ion-card-title>Meses</ion-card-title>
     </ion-card-header>
 
-    <ion-card-content class="ion-margin">
+    <ion-card-content >
       <ion-list *ngFor="let month of months">
         <ion-accordion-group>
           <ion-accordion value="{{ month.id }}">
 
             <ion-item slot="header">
-              <ion-label>{{ month.id | uppercase }} - {{ month.paid ? "PAGADO" : "PENDIENTE" }}</ion-label>
+              <ion-label>{{ month.id | uppercase }} - {{ month.paid ? "Pagado" : "Pendiente" }}</ion-label>
                 <ion-label slot="end">{{ month.totalFee | currency : 'USD' : 'symbol' : '2.0-2' }}</ion-label>
             </ion-item>
 
             <!-- SI YA SE HA PAGADO -->
-            <ion-item *ngIf="month.paid" button="true" slot="content">
+            <ion-item *ngIf="month.paid" button="true" slot="content" (click)="openPDF(month.ticketUrl)">
               <ion-label>
-                <p> {{ month.paidDate }}</p>
+                <p> Pagado en: {{ month.paidDate }}</p>
+                <p> Con tarjeta: {{ month.cardNumber | maskCardNumber }} - Exp {{ month.cardExpDate }}</p>
                 <p>Pulsa para ver comprobante de pago</p>
               </ion-label>
             </ion-item>
 
             <!-- SI NO SE HA PAGADO -->
-            <ion-item *ngIf="!month.paid" button="true" slot="content">
+            <ion-item *ngIf="!month.paid" slot="content">
               <ion-label>
                 <p> Aun no se ha realizado el pago de este mes</p>
                 <p>Realizalo antes de: {{ month.dueDate | date }} para evitar mora</p>

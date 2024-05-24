@@ -72,4 +72,22 @@ export class SemestersPage implements OnInit {
       month.totalFee = totalFee
     })
   }
+
+  // ABRIR EL PDF EN UNA PAGINA
+  openPDF(url: string){
+    if (url) {
+      window.open(url, '_blank');
+    }else{
+      console.error("No existe el documento");
+      this.utilsSvc.presentToast(
+        {
+          message: `Comprobante no disponible`,
+          duration: 1500,
+          icon: 'close-circle-outline',
+          color: 'danger',
+          position: 'middle'
+        }
+      )
+    }
+  }
 }

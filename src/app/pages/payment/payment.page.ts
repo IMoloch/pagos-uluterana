@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Card } from 'src/app/models/card.model';
 import { Month } from 'src/app/models/month.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { AddUpdateCardComponent } from 'src/app/shared/component/add-update-card/add-update-card.component';
 
 @Component({
   selector: 'app-payment',
@@ -36,9 +36,31 @@ export class PaymentPage implements OnInit {
   ionViewWillEnter() {
   }
 
+  // AGREGAR O EDITAR TARJETAS
+  async addUpdateCard(card?: Card) {
+    let success = await this.utilsSvc.presentModal({
+      component: AddUpdateCardComponent,
+      cssClass: "add-update-modal",
+      componentProps: { card }
+    })
+    if (success) this.getCards()
+  }
+
   routerLink(url: string) {
-    this.utilsSvc.setCard( this.form.value.cards as Card )
-    this.utilsSvc.routerLink(url)
+    if (this.form.value.cards) {
+      this.utilsSvc.setCard( this.form.value.cards as Card )
+      this.utilsSvc.routerLink(url)
+    }else {
+      this.utilsSvc.presentToast(
+        {
+          message: `Seleccione una tarjeta`,
+          duration: 1500,
+          icon: 'information-circle-outline',
+          color: 'warning',
+          position: 'middle'
+        }
+      )
+    }
   }
 
   // OBTNER EL MES SELECCIONADO EN HOME
@@ -65,10 +87,4 @@ export class PaymentPage implements OnInit {
       }
     })
   }
-
-  printcard(){
-    console.log(this.form.value.cards);
-    
-  }
-
 }

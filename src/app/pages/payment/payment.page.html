@@ -1,15 +1,17 @@
-<app-header [backButton]="true" title="Detalle de Pago"></app-header>
+<app-header [backButton]="true" title="Detalle de mes"></app-header>
 
 <ion-content>
   <!-- MUESTRA EL MONTO Y SI EXISTE PENALIDAD -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Mora por atraso, vea detalles abajo.</ion-card-title>
+      <ion-card-title>Concepto de pago</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Fecha actual: {{ currentDate | date:'medium' }}</p>
+      <p>Fecha actual: {{ currentDate | date:'dd/MM/yyyy' }}</p>
+      <p>Ultima fecha de pago: {{ month.dueDate | date:'dd/MM/yyyy' }}</p>
+      <p>Mes a pagar: {{ month.id | uppercase}}</p>
       <p *ngIf="isPenaltyApplicable">
-        Cantidad a pagar: {{ month.totalFee | currency : 'USD' : 'symbol' : '2.0-2'}} (Mora ${{ month.charges[1]['fee'] }})
+        Cantidad a pagar: {{ month.totalFee | currency : 'USD' : 'symbol' : '2.0-2'}} (Mora ${{ month.charges[1].fee }})
       </p>
       <p *ngIf="!isPenaltyApplicable">
         Cantidad a pagar: {{ month.totalFee | currency : 'USD' : 'symbol' : '2.0-2'}} (No aplica Mora)
@@ -20,11 +22,12 @@
   <!-- MUESTRA LA INFORMACION DEL ESTUDIANTE -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Información de Pago</ion-card-title>
+      <ion-card-title>Información de Estudiante</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      {{ user.name }}
-      <p>{{ user.email }}</p>
+      <p>Estudiante: {{ user.name }}</p>
+      <p>Carnet: {{ user.carnet }}</p>
+      <p>Se enviara un mail a su correo asociado: {{ user.email }}</p>
     </ion-card-content>
   </ion-card>
 
@@ -32,11 +35,15 @@
   <form [formGroup]="form">
     <ion-item class="ion-margin">
       <ion-select formControlName="cards" placeholder="Selecciona la tajeta con la que desea realizar el pago"
-        interface="action-sheet">
+        interface="action-sheet" value="cards">
         <ion-select-option *ngFor="let card of cards" [value]="card">{{card.number | maskCardNumber}} - EXP {{card.expDate}}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-button class="ion-margin" (click)="routerLink('payment/payment-confirm')" expand="block" fill="clear" shape="round">
+    <ion-button (click)="addUpdateCard()" fill="clear" shape="round" color="success">
+      <ion-icon slot="icon-only" name="add"></ion-icon>
+      Agregar una nueva tarjeta
+    </ion-button>
+    <ion-button class="ion-margin payment-btn" (click)="routerLink('payment/payment-confirm')" expand="block" fill="clear" shape="round">
       Proceder a pago
     </ion-button>
   </form>

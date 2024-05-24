@@ -52,12 +52,12 @@ export class PaymentConfirmPage implements OnInit {
   }
 
   async submit() {
-    const loading = await this.utilsSvc.loading()
-    await loading.present()
-    await this.generarPDF().finally(() => loading.dismiss())
+    await this.generarPDF()
   }
 
   async updatePaidInfo(ticketUrl: any) {
+    const loading = await this.utilsSvc.loading()
+    await loading.present()
     delete this.month.totalFee
     this.month.paid = true
     this.month.card = this.card.id
@@ -67,11 +67,15 @@ export class PaymentConfirmPage implements OnInit {
       console.log(res);
     }).catch(err => {
       console.log(err)
+    }).finally(()=> {
+      loading.dismiss()
     })
   }
 
   // GENERACION DE PDF
   async generarPDF() {
+    const loading = await this.utilsSvc.loading()
+    await loading.present()
     const headers = [['Número', 'Concepto', 'Valor', 'Mes']];
     let data = []
     for (let i = 0; i < this.month.charges.length; i++) {
@@ -108,6 +112,8 @@ export class PaymentConfirmPage implements OnInit {
       window.open(downloadURL, '_blank');
     }).catch(error => {
       console.log(error);
+    }).finally(()=> {
+      loading.dismiss()
     })
   }
 }

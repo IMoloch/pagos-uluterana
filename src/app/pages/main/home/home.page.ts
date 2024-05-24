@@ -63,4 +63,16 @@ export class HomePage implements OnInit {
       month.totalFee = totalFee
     })
   }
+
+  async copyDocument() {
+    try {
+      await this.firebaseSvc.copyDocumentWithSubcollections(
+        'users/tTgIAas7xjJrvU3cc68E',
+        'users/T4XHqJgD4KTk2drb6haibK23IC92'
+      );
+      console.log('Document copied successfully');
+    } catch (error) {
+      console.error('Error copying document: ', error);
+    }
+  }
 }
