@@ -2,11 +2,10 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-buttons>
-        <ion-back-button *ngIf="backButton" defaultHref="backButton">
-          <ion-icon name="arrow-back"></ion-icon>
-        </ion-back-button>
-      </ion-buttons>
+      <ion-button *ngIf="isModal" (click)="dismissModal()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-back-button *ngIf="backButton" defaultHref="main/home"></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="title">{{title}}</ion-title>
     <ion-buttons *ngIf="isMain" slot="end">

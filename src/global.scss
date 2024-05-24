@@ -74,11 +74,38 @@ ion-content {
     margin-top: 10px;
 }
 
-
-
 .validators{
     font-size: 14px;
     color: var(--ion-color-danger);
     padding-bottom: 15px;
     text-align: center;
+
+ion-card {
+    ion-card-header {
+        --background: #10143c;
+    }
+
+    ion-card-title {
+        color: #fff;
+    }
+
+    ion-card-content {
+        margin-top: 7px;
+    }
+}
+
+.d-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 769px) {
+    .auth-form {
+        width: 500px;
+    }
+
+    .add-update-modal {
+        --height: 680px;
+    }
 }

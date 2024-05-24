@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -12,7 +12,8 @@ export class HeaderComponent  implements OnInit {
   @Input() title?: string
   @Input() backButton?: boolean
   @Input() isMain?: boolean = false
-
+  @Input() isModal?: boolean = false
+  
   constructor(
     private utilsSvc: UtilsService,
     private firebaseSvc: FirebaseService
@@ -38,6 +39,9 @@ export class HeaderComponent  implements OnInit {
         },
       ],
     });
+
+  dismissModal(){
+    this.utilsSvc.dismissModal()
   }
 
 }
