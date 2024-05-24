@@ -1,13 +1,33 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>auth</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header class="ion-text-center" title="Login"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">auth</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <app-logo></app-logo> 
+  <form (ngSubmit)="submit()" class="auth-form" [formGroup]="form">
+    <app-custom-input autocomplete="email" [control]="form.controls.email" type="email" label="Correo"
+      icon="mail-outline">
+    </app-custom-input>
+
+    <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
+      <div *ngIf="form.controls.email.errors?.['required']"> El correo es requerido</div>
+      <div *ngIf="form.controls.email.errors?.['email']"> El Correo es invalido</div>
+    </div>
+
+    <app-custom-input [control]="form.controls.password" type="password" label="Contraseña"
+      icon="lock-closed-outline">
+    </app-custom-input>
+
+    <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
+      <div *ngIf="form.controls.password.errors?.['required']"> La Contraseña es requerida </div>
+    </div>
+
+<br>
+<br>
+
+    <ion-button [disabled]="form.invalid" type="submit" shape="round">
+      Ingresar <ion-icon slot="end" name="log-in-outline"></ion-icon>
+    </ion-button>
+
+
+
+  </form>
 </ion-content>

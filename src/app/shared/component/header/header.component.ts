@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -12,9 +13,32 @@ export class HeaderComponent  implements OnInit {
   @Input() backButton?: boolean
   @Input() isMain?: boolean = false
   @Input() isModal?: boolean = false
-  utilsSvc = inject(UtilsService)
+  
+  constructor(
+    private utilsSvc: UtilsService,
+    private firebaseSvc: FirebaseService
+  ) { }
 
   ngOnInit() {}
+
+  signOut() {
+    this.utilsSvc.presentAlert({
+      header: 'Cerrar Sesión',
+      message: '¿Quieres Cerrar Sesión?!!!',
+      mode: "ios",
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+        {
+          text: 'Sí, Cerrar sesión',
+          handler: () => {
+            this.firebaseSvc.signOut();
+          },
+        },
+      ],
+    });
 
   dismissModal(){
     this.utilsSvc.dismissModal()
