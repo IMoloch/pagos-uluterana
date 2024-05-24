@@ -16,7 +16,7 @@ export const noAuthGuard: CanActivateFn = (
           return true;
           // ========= Existe usuario autenticado ============
         } else {
-          utilsSvc.routerLink('/main/home');
+          utilsSvc.routerLink('/main/home', true);
           return false;
         }
       })

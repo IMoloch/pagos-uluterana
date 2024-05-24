@@ -37,6 +37,7 @@ export class PdfService {
       doc.html(htmlContent, {
         callback: async (pdf) => {
           const pdfBlob = pdf.output('blob')
+          
           try {
             // Subir el Blob a Firebase Storage y obtener la URL de descarga
             const downloadURL = await this.firebaseSvc.uploadPdfToStorage(pdfBlob, filename);

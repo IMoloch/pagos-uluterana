@@ -7,6 +7,7 @@ import { Month } from 'src/app/models/month.model';
 import { Card } from 'src/app/models/card.model';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { environment } from 'src/environments/environment.prod';
+import emailjs from '@emailjs/browser'
 
 @Component({
   selector: 'app-payment-confirm',
@@ -31,14 +32,14 @@ export class PaymentConfirmPage implements OnInit {
 
   ngOnInit() {
     this.user = this.utilsSvc.getFromLocalStorage('user')
-    if (!this.utilsSvc.getMonth()) this.utilsSvc.routerLink("", true)
+    if (!this.utilsSvc.getMonth()) this.utilsSvc.routerLink("/main/home", true)
     else this.getMonth()
     this.getCard()
     this.initConfig()
   }
 
   ionViewWillEnter() {
-    if (!this.utilsSvc.getMonth()) this.utilsSvc.routerLink("", true)
+    if (!this.utilsSvc.getMonth()) this.utilsSvc.routerLink("/main/home", true)
   }
 
   // OBTENER EL MES SELECCIONADO EN HOME
@@ -117,8 +118,10 @@ export class PaymentConfirmPage implements OnInit {
       </div>
     `;
 
-    await this.pdfService.generarPdf(htmlContent, Date.now().toString(), headers, data, foot, 240, 450).then(async (downloadURL: string) => {
+    await this.pdfService.generarPdf(htmlContent, Date.now().toString(), headers, data, foot, 240, 450)
+    .then(async (downloadURL: string) => {
       this.updatePaidInfo(downloadURL)
+      this.sendEmail(downloadURL)
       this.utilsSvc.presentToast({
         message: `Pago realizado exitosamente`,
         duration: 1500,
@@ -126,11 +129,24 @@ export class PaymentConfirmPage implements OnInit {
         color: 'success',
         position: 'middle'
       })
-      this.utilsSvc.routerLink("", true)
+      this.utilsSvc.routerLink("/main/home", true)
     }).catch(error => {
       console.log(error);
     }).finally(() => {
       loading.dismiss()
+    })
+  }
+
+  sendEmail(downloadURL: string){
+    emailjs.init(environment.emailJs.options)
+    const params = {
+      to: this.user.email,
+      link: downloadURL,
+    }
+    emailjs.send(environment.emailJs.serviceID, environment.emailJs.templateID, params).then((res) => {
+      console.log('Correo enviado');
+    }).catch((err) => {
+      console.log('Error: ',err);
     })
   }
 

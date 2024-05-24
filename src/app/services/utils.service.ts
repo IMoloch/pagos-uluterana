@@ -19,7 +19,7 @@ export class UtilsService {
   alertCtrl = inject(AlertController)
   router = inject(Router)
   
-  routerLink(url: string, replace: boolean = false) {
+  routerLink(url: string, replace?: boolean) {
     return this.router.navigate([url], { replaceUrl: replace })
   }
   
