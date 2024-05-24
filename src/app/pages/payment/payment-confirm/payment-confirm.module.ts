@@ -9,13 +9,16 @@ import { PaymentConfirmPageRoutingModule } from './payment-confirm-routing.modul
 import { PaymentConfirmPage } from './payment-confirm.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 
+import { NgxPayPalModule } from 'ngx-paypal';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     PaymentConfirmPageRoutingModule,
-    SharedModule
+    SharedModule,
+    NgxPayPalModule,
   ],
   declarations: [PaymentConfirmPage]
 })

@@ -34,6 +34,7 @@ export class PaymentPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    if (!this.utilsSvc.getMonth()) this.utilsSvc.routerLink("", true)
   }
 
   // AGREGAR O EDITAR TARJETAS

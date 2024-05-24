@@ -53,7 +53,6 @@ export class AuthPage implements OnInit {
 
   async getUserInfo(uid: string) {
     if (this.form.valid) {
-      console.log(uid);
       const loading = await this.utilsSvc.loading();
       await loading.present();
 
