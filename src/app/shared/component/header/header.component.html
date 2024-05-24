@@ -9,7 +9,7 @@
     </ion-buttons>
     <ion-title *ngIf="title">{{title}}</ion-title>
     <ion-buttons *ngIf="isMain" slot="end">
-      <ion-button color="danger">
+      <ion-button color="danger" (click)="signOut()">
         <ion-icon name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>

@@ -49,6 +49,7 @@ export class AddUpdateCardComponent implements OnInit {
     await loading.present()
     
     delete this.form.value.id
+    this.form.patchValue({name: this.form.value.name.toUpperCase()})
     
     this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
       this.utilsSvc.dismissModal({
@@ -82,6 +83,7 @@ export class AddUpdateCardComponent implements OnInit {
     await loading.present()
 
     delete this.form.value.id
+    this.form.patchValue({name: this.form.value.name.toUpperCase()})
 
     this.firebaseSvc.updateDocument(path, this.form.value).then(async res => {
       this.utilsSvc.dismissModal({

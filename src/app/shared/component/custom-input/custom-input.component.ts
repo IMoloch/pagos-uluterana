@@ -17,13 +17,14 @@ export class CustomInputComponent  implements OnInit {
   isPassword!: boolean
   hide: boolean = true
 
+  constructor() { }
+
   ngOnInit() {
     if (this.type=='password') this.isPassword=true
   }
-  
+
   showOrHidePassword() {
     this.hide = !this.hide
-
     if (this.hide) this.type = 'password'
     else this.type = 'text'
   }

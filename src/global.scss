@@ -45,8 +45,19 @@ ion-button {
     --color: #fff;
 }
 
-ion-card {
+.custom-input .eye-icon {
+    position: relative;
+    top: 13px;
+}
 
+.validators{
+    font-size: 14px;
+    color: var(--ion-color-danger);
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+ion-card {
     ion-card-header {
         --background: #10143c;
     }
@@ -64,12 +75,6 @@ ion-card {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.validators {
-    color: var(--ion-color-danger);
-    font-size: 13px;
-    text-align: center;
 }
 
 @media (min-width: 769px) {
