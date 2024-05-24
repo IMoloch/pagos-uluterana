@@ -1,6 +1,6 @@
 <app-header [backButton]="true" title="Confirmación de pago"></app-header>
 
-<ion-content>
+<ion-content class="d-flex-center">
 
 <ion-card>
     <ion-card-header>
@@ -20,7 +20,8 @@
     </ion-card-content>
 </ion-card>
 
-<ion-button class="ion-margin" (click)="generarPDF()" expand="block" fill="clear" shape="round">
+<ngx-paypal [config]="payPalConfig"></ngx-paypal>
+<!-- <ion-button class="ion-margin" (click)="sendEmail('youtube.com')" expand="block" fill="clear" shape="round">
   Confirmar Pago
-</ion-button>
+</ion-button> -->
 </ion-content>

@@ -28,12 +28,13 @@ export class PaymentPage implements OnInit {
 
   ngOnInit() {
     this.user = this.utilsSvc.getFromLocalStorage('user')
-    if (!this.utilsSvc.getMonth()) this.utilsSvc.routerLink("", true)
+    if (!this.utilsSvc.getMonth()) this.utilsSvc.routerLink("/main/home", true)
     else this.getMonth()
     this.getCards()
   }
 
   ionViewWillEnter() {
+    if (!this.utilsSvc.getMonth()) this.utilsSvc.routerLink("/main/home", true)
   }
 
   // AGREGAR O EDITAR TARJETAS
