@@ -33,13 +33,13 @@ export class HomePage implements OnInit {
   }
 
   routerLink(url: string, month: Month) {
-    this.utilsSvc.setData( month as Month )
+    this.utilsSvc.setMonth( month as Month )
     this.utilsSvc.routerLink(url)
   }
 
   // OBTENER MESES DEL USUARIO
   getMonths() {
-    let path = `users/${this.user.uid}/semesters/1-2024/payments`
+    let path = `users/${this.user.uid}/semesters/${this.semester.cycle}-${this.semester.year}/payments`
     let query = [
       orderBy('dueDate','asc'),
       where('paid',"==",false)

@@ -1,7 +1,7 @@
 <app-header [backButton]="true" title="Detalle de Pago"></app-header>
 
 <ion-content>
-  <!-- Formulario para calcular penalidad -->
+  <!-- MUESTRA EL MONTO Y SI EXISTE PENALIDAD -->
   <ion-card>
     <ion-card-header>
       <ion-card-title>Mora por atraso, vea detalles abajo.</ion-card-title>
@@ -17,18 +17,27 @@
     </ion-card-content>
   </ion-card>
 
-  <!-- Formulario para pagar -->
+  <!-- MUESTRA LA INFORMACION DEL ESTUDIANTE -->
   <ion-card>
     <ion-card-header>
       <ion-card-title>Información de Pago</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       {{ user.name }}
-      {{ user.email }}
+      <p>{{ user.email }}</p>
     </ion-card-content>
   </ion-card>
-  
-  <ion-button class="ion-margin" routerLink="payment-confirm" expand="block" fill="clear" shape="round">
-    Confirmar pago
-  </ion-button>
+
+  <!-- SELECCION DE TARJETA -->
+  <form [formGroup]="form">
+    <ion-item class="ion-margin">
+      <ion-select formControlName="cards" placeholder="Selecciona la tajeta con la que desea realizar el pago"
+        interface="action-sheet">
+        <ion-select-option *ngFor="let card of cards" [value]="card">{{card.number | maskCardNumber}} - EXP {{card.expDate}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button class="ion-margin" (click)="routerLink('payment/payment-confirm')" expand="block" fill="clear" shape="round">
+      Proceder a pago
+    </ion-button>
+  </form>
 </ion-content>

@@ -6,6 +6,7 @@ export interface Month {
     paidDate?: string
     card?: string
     totalFee?: number
+    ticketUrl?: string
 }
 
 export interface Charge {
