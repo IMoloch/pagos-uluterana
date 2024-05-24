@@ -39,6 +39,7 @@ export class HeaderComponent  implements OnInit {
         },
       ],
     });
+  }
 
   dismissModal(){
     this.utilsSvc.dismissModal()

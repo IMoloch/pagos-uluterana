@@ -10,20 +10,17 @@ import { UtilsService } from 'src/app/services/utils.service';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
-  
+
+  //inyectando el servicio de Firebase a la pagina Auth
+  firebaseSrv = inject(FirebaseService);
+  utilsSvc = inject(UtilsService);
+
   form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
-  
   });
 
   constructor() { }
-
-    //inyectando el servicio de Firebase a la pagina Auth
-    firebaseSrv = inject(FirebaseService);
-    utilsSvc = inject(UtilsService);
-    
-
   ngOnInit() {
   }
 
@@ -31,6 +28,8 @@ export class AuthPage implements OnInit {
     if (this.form.valid) {
       const loading = await this.utilsSvc.loading();
       await loading.present();
+      let email = this.form.value.email.toLowerCase()
+      this.form.patchValue( {email: `${email}@uls.edu.sv`})
 
       this.firebaseSrv
         .signIn(this.form.value as User)
@@ -38,7 +37,6 @@ export class AuthPage implements OnInit {
           this.getUserInfo(res.user.uid);
         })
         .catch((error) => {
-          //console.log(error);
           this.utilsSvc.presentToast({
             message: error.message,
             duration: 2500,
@@ -53,9 +51,7 @@ export class AuthPage implements OnInit {
     }
   }
 
-
   async getUserInfo(uid: string) {
-    
     if (this.form.valid) {
       console.log(uid);
       const loading = await this.utilsSvc.loading();
