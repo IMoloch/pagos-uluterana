@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogoComponent } from './component/logo/logo.component';
 import { AddUpdateCardComponent } from './component/add-update-card/add-update-card.component';
+import { maskCardNumberPipe } from '../pipes/maskCardNumber.pipe';
 
 
 @NgModule({
@@ -14,19 +15,21 @@ import { AddUpdateCardComponent } from './component/add-update-card/add-update-c
     CustomInputComponent,
     LogoComponent,
     AddUpdateCardComponent,
+    maskCardNumberPipe,
   ],
   exports: [
     HeaderComponent,
     CustomInputComponent,
     LogoComponent,
     AddUpdateCardComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    maskCardNumberPipe,
   ],
   imports: [
     CommonModule,
     IonicModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ]
 })
 export class SharedModule { }

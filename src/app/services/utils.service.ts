@@ -3,13 +3,15 @@ import { Router } from '@angular/router';
 import { AlertController, AlertOptions, LoadingController, ModalController, ModalOptions, ToastController, ToastOptions } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { Month } from '../models/month.model';
+import { Card } from '../models/card.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
   
-  data: Month
+  month: Month
+  card: Card
   
   loadingCtrl = inject(LoadingController)
   modalCtrl = inject(ModalController)
@@ -17,9 +19,9 @@ export class UtilsService {
   alertCtrl = inject(AlertController)
   router = inject(Router)
   
-    routerLink(url: string) {
-      return this.router.navigateByUrl(url)
-    }
+  routerLink(url: string, replace: boolean = false) {
+    return this.router.navigate([url], { replaceUrl: replace })
+  }
   
   /* Template del Loading
     {
@@ -109,11 +111,20 @@ export class UtilsService {
   }
 
   // --------- GET Y SET DEL MES ---------
-  setData(data: Month){
-    this.data = data
+  setMonth(month: Month){
+    this.month = month
   }
 
-  getData(){
-    return this.data as Month
+  getMonth(){
+    return this.month as Month
+  }
+
+  // --------- GET Y SET DE LA TARJETA ---------
+  setCard(card: Card){
+    this.card = card
+  }
+
+  getCard(){
+    return this.card as Card
   }
 }

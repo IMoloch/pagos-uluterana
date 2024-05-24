@@ -1,17 +1,26 @@
-<app-header [backButton]="true"></app-header>
+<app-header [backButton]="true" title="Confirmación de pago"></app-header>
 
 <ion-content>
 
 <ion-card>
     <ion-card-header>
-        <ion-card-title><strong>Confirmación de pago</strong></ion-card-title>
+        <ion-card-title><strong>Detalle de transacción</strong></ion-card-title>
     </ion-card-header>
     <ion-card-content>
-        confirma tu pago
+        <ion-item lines="none">
+            <ion-label><strong> {{ month.id | uppercase }} </strong></ion-label>
+        </ion-item>
+        <ion-item *ngFor="let charge of month.charges; let i = index">
+            <ion-label>{{charge.description}}</ion-label>
+            <ion-label slot="end">${{charge.fee}}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+            <ion-label slot="end"><strong>Total: ${{month.totalFee}}</strong></ion-label>
+        </ion-item>
     </ion-card-content>
 </ion-card>
 
 <ion-button class="ion-margin" (click)="generarPDF()" expand="block" fill="clear" shape="round">
-  ticket
+  Confirmar Pago
 </ion-button>
 </ion-content>
