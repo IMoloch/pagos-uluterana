@@ -49,7 +49,7 @@ export class FirebaseService {
   async signOut() {
     await this.auth.signOut();
     localStorage.removeItem('user');
-    this.utilsSvc.routerLink('/auth');
+    this.utilsSvc.routerLink('/auth', true);
   }
 
   //Funcion para proteger rutas, y crearemos un guard, opcion canActivate

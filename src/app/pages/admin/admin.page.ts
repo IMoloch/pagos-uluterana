@@ -42,10 +42,6 @@ export class AdminPage implements OnInit {
     this.getStudents()
   }
 
-  routerLink(url: string) {
-    this.utilsSvc.routerLink(url)
-  }
-
   // OBTENER MESES DEL USUARIO
   getStudents() {
     let path = `users`

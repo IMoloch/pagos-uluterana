@@ -63,7 +63,7 @@ export class AuthPage implements OnInit {
         .getDocument(path)
         .then((user: User) => {
           this.utilsSvc.setInLocalStorage('user', user);
-          this.utilsSvc.routerLink('/main/home');
+          this.utilsSvc.routerLink('/main/home', true);
           this.form.reset();
 
           this.utilsSvc.presentToast({
