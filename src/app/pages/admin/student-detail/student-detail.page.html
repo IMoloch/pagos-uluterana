@@ -1,0 +1,70 @@
+<app-header [backButton]="true" title="{{ student ? 'Actualizar Estudiante' : 'Agregar Estudiante' }}"></app-header>
+
+<ion-content>
+  <div>
+    <form [formGroup]="form" class="ion-padding ion-text-center" (ngSubmit)="updateStudent()">
+
+      <!-- CARRERA -->
+      <ion-item class="ion-margin">
+        <ion-select formControlName="carrera" label="Carrera" placeholder="Selecciona la Carrera"
+          interface="action-sheet" value="carrera">
+          <ion-select-option *ngFor="let carrera of carreras" value="{{ carrera }}">{{carrera}}</ion-select-option>
+        </ion-select>
+        <div class="validators" *ngIf="form.controls.carrera.errors && form.controls.carrera.touched">
+          <div *ngIf="form.controls.carrera.errors?.['required']">Este campo es requerido</div>
+        </div>
+      </ion-item>
+
+      <!-- NOMBRE ESTUDIANTE -->
+      <app-custom-input [control]="form.controls.name" type="string" label="Nombre de Estudiante"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+        <div *ngIf="form.controls.name.errors?.['required']">Este campo es requerido</div>
+      </div>
+      <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+        <div *ngIf="form.controls.name.errors?.['minlength']">Ingrese el nombre completo</div>
+      </div>
+
+      <!-- CARNET -->
+      <app-custom-input [control]="form.controls.carnet" type="text" label="Carnet"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.carnet.errors && form.controls.carnet.touched">
+        <div *ngIf="form.controls.carnet.errors?.['required']">Este campo es requerido</div>
+      </div>
+      <div class="validators" *ngIf="form.controls.carnet.errors && form.controls.carnet.touched">
+        <div *ngIf="form.controls.carnet.errors?.['minlength']">El Carnet debe ser de 10 caracteres de largo</div>
+      </div>
+      <div class="validators" *ngIf="form.controls.carnet.errors && form.controls.carnet.touched">
+        <div *ngIf="form.controls.carnet.errors?.['maxlength']">El Carnet debe ser de 10 caracteres de largo</div>
+      </div>
+
+      <!-- BOTON DE SUBMIT -->
+      <ion-button class="ion-margin" type="submit" [disabled]="form.invalid">
+        {{ student ? 'Actualizar Estudiante' : 'Agregar Estudiante' }}
+      </ion-button>
+    </form>
+
+    <ion-card *ngIf="student">
+
+      <ion-card-header>
+        <ion-card-title>Ciclos</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list *ngFor="let semester of semesters">
+          <ion-item>
+            <ion-label>
+              <strong>{{ semester.id }}</strong>
+            </ion-label>
+            <ion-button (click)="confirmDeleteSemesters(semester)" color="danger">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+
+        <ion-button (click)="addSemester(student)" color="success" shape="round">
+          <ion-icon slot="start" name="add"></ion-icon>
+          Agregar ciclo
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

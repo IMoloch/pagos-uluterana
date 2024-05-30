@@ -1,0 +1,63 @@
+<app-header [backButton]="true" title="Registro"></app-header>
+
+<ion-content>
+  <app-logo></app-logo>
+  <div class="d-flex-center">
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="createStudent()" (keypress.enter)="createStudent()">
+      <!-- ======================== CARRERA ======================== -->
+      <ion-item>
+        <ion-select formControlName="carrera" label="Carrera" placeholder="Selecciona la Carrera"
+          interface="action-sheet" label-placement="floating">
+          <ion-select-option *ngFor="let carrera of carreras" value="{{ carrera }}">{{carrera}}</ion-select-option>
+        </ion-select>
+        <div class="validators" *ngIf="form.controls.carrera.errors && form.controls.carrera.touched">
+          <div *ngIf="form.controls.carrera.errors?.['required']">Este campo es requerido</div>
+        </div>
+      </ion-item>
+
+      <!-- CARNET -->
+      <app-custom-input icon="school-outline" [control]="form.controls.carnet" type="text"
+        label="Carnet"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.carnet.errors && form.controls.carnet.touched">
+        <div *ngIf="form.controls.carnet.errors?.['required']">Este campo es requerido</div>
+      </div>
+      <div class="validators" *ngIf="form.controls.carnet.errors && form.controls.carnet.touched">
+        <div *ngIf="form.controls.carnet.errors?.['minlength']">El Carnet debe ser de 10 caracteres de largo</div>
+      </div>
+      <div class="validators" *ngIf="form.controls.carnet.errors && form.controls.carnet.touched">
+        <div *ngIf="form.controls.carnet.errors?.['maxlength']">El Carnet debe ser de 10 caracteres de largo</div>
+      </div>
+
+      <!-- ======================== NAME ======================== -->
+      <app-custom-input icon="person-outline" [control]="form.controls.name" type="text"
+        label="Nombre"></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+        <div *ngIf="form.controls.name.errors?.['required']">El nombre es requerido</div>
+        <div *ngIf="form.controls.name.errors?.['minlength']">El nombre debe contener al menos 4 caracteres</div>
+      </div>
+
+      <!-- ======================== EMAIL ======================== -->
+      <app-custom-input icon="mail-outline" [control]="form.controls.email" type="email" label="Correo"
+        autocomplete="email"></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
+        <div *ngIf="form.controls.email.errors?.['required']">El correo es requerido</div>
+        <div *ngIf="form.controls.email.errors?.['email']">Ingrese un correo valido</div>
+      </div>
+
+      <!-- ======================== CONTRASEÑA ======================== -->
+      <app-custom-input icon="lock-closed-outline" [control]="form.controls.password" type="password" label="Contraseña"
+        autocomplete="false"></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
+        <div *ngIf="form.controls.password.errors?.['required']">Ingrese la contraseña</div>
+      </div>
+
+      <ion-button class="submit ion-margin" type="submit" mode="ios" expand="block" [disabled]="form.invalid">
+        Registrate
+        <ion-icon slot="end" name="log-in-outline"></ion-icon>
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

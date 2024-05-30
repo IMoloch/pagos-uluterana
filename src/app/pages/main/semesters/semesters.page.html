@@ -6,6 +6,7 @@
     <ion-item class="ion-margin">
       <ion-select formControlName="semester" (ionChange)="getMonths()" label="Ciclo" placeholder="Selecciona Ciclo"
         interface="popover" value="semester">
+        <ion-select-option *ngIf="!semesters.length" [value]="null">No posee ciclos registrados</ion-select-option>
         <ion-select-option *ngFor="let semester of semesters" value="{{ semester.id }}">{{semester.id}}</ion-select-option>
       </ion-select>
     </ion-item>

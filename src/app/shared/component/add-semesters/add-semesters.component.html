@@ -1,0 +1,16 @@
+<app-header [isModal]="true" title="Agregar Ciclo"></app-header>
+
+<ion-content>
+  <form [formGroup]="form" class="ion-padding ion-text-center" (ngSubmit)="addSemester()">
+    <ion-select [formControl]="form.controls.cycle" label="Ciclo" placeholder="Selecciona el ciclo" interface="popover">
+      <ion-select-option [value]=1>1</ion-select-option>
+      <ion-select-option [value]=2>2</ion-select-option>
+    </ion-select>
+    <ion-select [formControl]="form.controls.year" label="Año" placeholder="Selecciona el año" interface="popover">
+      <ion-select-option *ngFor="let year of years" [value]="year">{{year}}</ion-select-option>
+    </ion-select>
+    <ion-button type="submit" expand="block" shape="round">
+      <ion-label class="ion-padding">Agregar Ciclo</ion-label>
+    </ion-button>
+  </form>
+</ion-content>

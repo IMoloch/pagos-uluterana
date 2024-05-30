@@ -72,8 +72,12 @@ export class PaymentPage implements OnInit {
 
   // DETERMINA SI SE ESTA APLICANDO UN RECARGO POR MORA
   getPenalty() {    
-    const dueDate = new Date(this.month.dueDate)
-    this.isPenaltyApplicable = this.currentDate > dueDate;
+    if (this.month.id === 'inscripcion') {
+      this.isPenaltyApplicable = false
+    } else {
+      const dueDate = new Date(this.month.dueDate)
+      this.isPenaltyApplicable = this.currentDate > dueDate;
+    }
   }
 
   // OBTENER EL LISTADO DE TARJETAS DEL USUARIO

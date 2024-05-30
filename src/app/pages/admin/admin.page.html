@@ -1,0 +1,31 @@
+<app-header [isMain]="true" title="Admin"></app-header>
+<ion-content>
+  <app-logo></app-logo>
+
+  <ion-card>
+    <form [formGroup]="form" (ngSubmit)="getStudentsFiltered()" (keypress.enter)="getStudentsFiltered()">
+      <ion-item class="ion-margin">
+        <ion-select formControlName="carrera" (ionChange)="getStudentsFiltered()" label="Carrera" placeholder="Selecciona Carrera"
+          interface="action-sheet">
+          <ion-select-option value="Todos">Todos</ion-select-option>
+          <ion-select-option *ngFor="let carrera of carreras" value="{{ carrera }}">{{carrera}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </form>
+
+    <ion-card-header>
+      <ion-card-title>Estudiantes</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list *ngFor="let student of students">
+        <ion-item button="true" (click)="addUpdateStudent('/admin/student-detail', student)">
+          <ion-label>
+            <strong>{{ student.name }} - {{ student.carnet }}</strong>
+            <p>{{ student.carrera }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

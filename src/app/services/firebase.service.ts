@@ -1,11 +1,10 @@
-import { getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithCustomToken, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Injectable, inject } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFirestore } from "@angular/fire/compat/firestore";
 import { AngularFireStorage } from "@angular/fire/compat/storage";
 import { getFirestore, setDoc, getDoc, doc, addDoc, collection, collectionData, query, updateDoc, deleteDoc, getDocs, Firestore, DocumentReference } from "@angular/fire/firestore";
 import { UtilsService } from './utils.service';
-import { Observable } from 'rxjs';
 import { User } from "../models/user.model";
 
 @Injectable({
@@ -18,10 +17,23 @@ export class FirebaseService {
   utilsSvc = inject(UtilsService);
   private db: Firestore = getFirestore();
 
-  constructor() {}
+  constructor() { }
 
   getAuth() {
     return getAuth();
+  }
+
+  // =================== VALIDA SI CURRENT USER ES ADMIN ====================
+  async isAdmin() {
+    const user = getAuth().currentUser; // OBTIENE UN OBJETO CON LA INFORMACION DEL USUARIO AUTENTICADO ACTUAL
+    const path = `/users/${user.uid}` // CREAMOS EL PATH CON EL OBTENDREMOS EL DOCUMENTO CON LA INFORMACION DEL USUARIO ACTUAL
+    try {
+      const userDoc = await this.getDocument(path);
+      return userDoc?.['role'] === 'admin'; //DEVUELVE TRUE SI EL USUARIO ES ADMIN O FALSE SI NO LO ES
+    } catch (error) {
+      console.error('Error obteniendo el documento del usuario:', error);
+      return false;
+    }
   }
 
   // =========== Acceder ===============
@@ -31,14 +43,17 @@ export class FirebaseService {
       user.email,
       user.password
     );
-    localStorage.setItem('user', JSON.stringify(result.user));
     return result;
+  }
+
+  signUp(user: User) {
+    return createUserWithEmailAndPassword(getAuth(), user.email, user.password)
   }
 
   async signOut() {
     await this.auth.signOut();
     localStorage.removeItem('user');
-    this.utilsSvc.routerLink('/auth');
+    this.utilsSvc.routerLink('/auth', true);
   }
 
   //Funcion para proteger rutas, y crearemos un guard, opcion canActivate
