@@ -44,6 +44,7 @@ export class AuthPage implements OnInit {
             position: 'middle',
             icon: 'alert-circle-outline',
           });
+          this.form.patchValue( {email: `${email}`})
         })
         .finally(() => {
           loading.dismiss();

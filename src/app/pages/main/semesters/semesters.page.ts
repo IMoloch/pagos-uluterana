@@ -31,6 +31,12 @@ export class SemestersPage implements OnInit {
     this.getSemesters()
   }
 
+  // REDIRECCION A PAYMENTS
+  routerLink(url: string, month: Month) {
+    this.utilsSvc.setMonth( month as Month )
+    this.utilsSvc.routerLink(url)
+  }
+
   // OBTENER LA LISTA DE CICLOS DE ESTUDIANTE
   getSemesters() {
     let path = `users/${this.user.uid}/semesters`

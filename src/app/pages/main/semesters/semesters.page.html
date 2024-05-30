@@ -30,16 +30,18 @@
             <ion-item *ngIf="month.paid" button="true" slot="content" (click)="openPDF(month.ticketUrl)">
               <ion-label>
                 <p> Pagado en: {{ month.paidDate }}</p>
-                <p> Con tarjeta: {{ month.cardNumber | maskCardNumber }} - Exp {{ month.cardExpDate }}</p>
-                <p>Pulsa para ver comprobante de pago</p>
+                <p *ngIf="month.card"> Con tarjeta: {{ month.cardNumber | maskCardNumber }} - Exp {{ month.cardExpDate }}</p>
+                <p *ngIf="month.card">Pulsa para ver comprobante de pago</p>
+                <p *ngIf="!month.card">Pago no realizado con tarjeta</p>
               </ion-label>
             </ion-item>
 
             <!-- SI NO SE HA PAGADO -->
-            <ion-item *ngIf="!month.paid" slot="content">
+            <ion-item button="true" *ngIf="!month.paid" slot="content" (click)="routerLink('/payment', month)">
               <ion-label>
                 <p> Aun no se ha realizado el pago de este mes</p>
                 <p>Realizalo antes de: {{ month.dueDate | date }} para evitar mora</p>
+                <p>Pulsa poara realizar el pago</p>
               </ion-label>
             </ion-item>
           </ion-accordion>

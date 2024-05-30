@@ -34,7 +34,7 @@
   <!-- SELECCION DE TARJETA -->
   <form [formGroup]="form">
     <ion-item class="ion-margin">
-      <ion-select formControlName="cards" placeholder="Selecciona la tajeta con la que desea realizar el pago"
+      <ion-select formControlName="cards" placeholder="Selecciona la tarjeta con la que desea realizar el pago"
         interface="action-sheet" value="cards">
         <ion-select-option *ngFor="let card of cards" [value]="card">{{card.number | maskCardNumber}} - EXP {{card.expDate}}</ion-select-option>
       </ion-select>
