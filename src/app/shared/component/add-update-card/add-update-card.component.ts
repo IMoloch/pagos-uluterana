@@ -114,8 +114,8 @@ export class AddUpdateCardComponent implements OnInit {
   // ALERTA DE CONFIRMACION DE TARJETA
   async confirmDeleteProduct() {
     this.utilsSvc.presentAlert({
-      header: 'Eliminar Tarjeta!',
-      message: '¿Quieres eliminar este producto?',
+      header: '¡Eliminar Tarjeta!',
+      message: '¿Quieres eliminar este Tarjeta?',
       buttons: [
         {
           text: 'Cancelar',
@@ -142,7 +142,7 @@ export class AddUpdateCardComponent implements OnInit {
         success: true
       })
       this.utilsSvc.presentToast({
-        message: "Producto eliminado exitosamente",
+        message: "Tarjeta eliminado exitosamente",
         duration: 1500,
         icon: 'checkmark-circle-outline',
         color: 'success',
