@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogoComponent } from './component/logo/logo.component';
 import { AddUpdateCardComponent } from './component/add-update-card/add-update-card.component';
 import { maskCardNumberPipe } from '../pipes/maskCardNumber.pipe';
+import { AddSemestersComponent } from './component/add-semesters/add-semesters.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { maskCardNumberPipe } from '../pipes/maskCardNumber.pipe';
     CustomInputComponent,
     LogoComponent,
     AddUpdateCardComponent,
+    AddSemestersComponent,
     maskCardNumberPipe,
   ],
   exports: [
@@ -22,6 +24,7 @@ import { maskCardNumberPipe } from '../pipes/maskCardNumber.pipe';
     CustomInputComponent,
     LogoComponent,
     AddUpdateCardComponent,
+    AddSemestersComponent,
     ReactiveFormsModule,
     maskCardNumberPipe,
   ],

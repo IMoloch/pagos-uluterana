@@ -51,7 +51,6 @@ export class PaymentConfirmPage implements OnInit {
   // OBTENER LA TARJETA SELECCIONADOA EN HOME
   getCard() {
     this.card = this.utilsSvc.getCard()
-    this.firebaseSvc.getDocument
   }
 
   // GENERA EL PATH PARA LA ACUTALIZACIÓN DE DATOS EN FIRESTORE

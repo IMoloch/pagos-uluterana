@@ -1,5 +1,5 @@
 export interface Month {
-    id: string
+    id?: string
     charges: Charge[]
     dueDate: string
     paid: boolean

@@ -5,4 +5,5 @@ export interface User {
     carrera: string
     email: string
     password?: string
+    role: string
 }

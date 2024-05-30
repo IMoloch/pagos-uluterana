@@ -23,6 +23,7 @@ export class ProfilePage implements OnInit {
     name: new FormControl(''),
     carnet: new FormControl(''),
     carrera: new FormControl(''),
+    role: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
   })
 

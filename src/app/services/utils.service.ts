@@ -4,6 +4,7 @@ import { AlertController, AlertOptions, LoadingController, LoadingOptions, Modal
 import { BehaviorSubject } from 'rxjs';
 import { Month } from '../models/month.model';
 import { Card } from '../models/card.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class UtilsService {
   
   month: Month
   card: Card
+  student: User
   
   loadingCtrl = inject(LoadingController)
   modalCtrl = inject(ModalController)
@@ -136,5 +138,14 @@ export class UtilsService {
 
   getCard(){
     return this.card as Card
+  }
+
+  // --------- GET Y SET DE ESTUDIANTE ---------
+  setStudent(student: User){
+    this.student = student
+  }
+
+  getStudent(){
+    return this.student as User
   }
 }
