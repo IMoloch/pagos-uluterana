@@ -7,8 +7,8 @@
       <ion-card-title>Pagos próximos</ion-card-title>
     </ion-card-header>
 
-    <ion-card-content>
-      <ion-list *ngFor="let month of months">
+    <ion-card-content *ngIf="months.length">
+      <ion-list  *ngFor="let month of months">
         <ion-item button="true" (click)="routerLink('/payment', month)">
           <ion-label>
             <strong>Ciclo {{ semester.cycle }} - {{ semester.year }} {{ month.id | uppercase }}</strong>
@@ -18,5 +18,11 @@
         </ion-item>
       </ion-list>
     </ion-card-content>
+    <ion-item *ngIf="!months.length">
+      <ion-label class="ion-text-center">
+        <ion-icon name="information-circle"></ion-icon>
+        No esta registrado en el ciclo actual
+      </ion-label>
+    </ion-item>
   </ion-card>
 </ion-content>

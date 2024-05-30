@@ -27,7 +27,7 @@ export class StudentDetailPage implements OnInit {
     "Licenciatura en Psicología",
     "Licenciatura en Trabajo Social",
     "Licenciatura en Teología",
-    "Meatría en Gerencia Social",
+    "Maestría en Gerencia Social",
   ]
   student: User
   semesters: any[] = []

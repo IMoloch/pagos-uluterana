@@ -25,8 +25,7 @@
       </div>
 
       <!-- CARNET -->
-      <app-custom-input [control]="form.controls.carnet" type="string" inputmode="numeric"
-        label="Carnet"></app-custom-input>
+      <app-custom-input [control]="form.controls.carnet" type="text" label="Carnet"></app-custom-input>
       <div class="validators" *ngIf="form.controls.carnet.errors && form.controls.carnet.touched">
         <div *ngIf="form.controls.carnet.errors?.['required']">Este campo es requerido</div>
       </div>

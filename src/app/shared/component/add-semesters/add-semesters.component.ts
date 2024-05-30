@@ -17,7 +17,7 @@ export class AddSemestersComponent implements OnInit {
   utilsSvc = inject(UtilsService)
   years = []
   currentDate = new Date()
-  minYear = 2022
+  minYear = 2024
 
   form = new FormGroup({
     cycle: new FormControl<number>(1),
@@ -94,6 +94,8 @@ export class AddSemestersComponent implements OnInit {
             }
           ]
         }
+        const dueDate = new Date(month.dueDate)
+        if (this.currentDate > dueDate) month.charges.push({ description: "Mora", fee: 5})
         this.firebaseSvc.setDocument(path, month as Month).then(async res => { })
       })
     } else {
@@ -135,6 +137,8 @@ export class AddSemestersComponent implements OnInit {
               }
             ]
           }
+          const dueDate = new Date(month.dueDate)
+          if (this.currentDate > dueDate) month.charges.push({ description: "Mora", fee: 5})
           this.firebaseSvc.setDocument(path, month as Month).then(async res => { })
         } else {
           let month: Month = {
@@ -147,6 +151,8 @@ export class AddSemestersComponent implements OnInit {
               }
             ]
           }
+          const dueDate = new Date(month.dueDate)
+          if (this.currentDate > dueDate) month.charges.push({ description: "Mora", fee: 5})
           this.firebaseSvc.setDocument(path, month as Month).then(async res => { })
         }
       })

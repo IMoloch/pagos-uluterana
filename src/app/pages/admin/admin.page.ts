@@ -28,7 +28,7 @@ export class AdminPage implements OnInit {
     "Licenciatura en Psicología",
     "Licenciatura en Trabajo Social",
     "Licenciatura en Teología",
-    "Meatría en Gerencia Social",
+    "Maestría en Gerencia Social",
   ]
   form = new FormGroup({
     carrera: new FormControl("Todos"),

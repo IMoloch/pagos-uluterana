@@ -46,6 +46,10 @@ export class FirebaseService {
     return result;
   }
 
+  signUp(user: User) {
+    return createUserWithEmailAndPassword(getAuth(), user.email, user.password)
+  }
+
   async signOut() {
     await this.auth.signOut();
     localStorage.removeItem('user');

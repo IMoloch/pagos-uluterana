@@ -6,7 +6,7 @@
     <form [formGroup]="form" (ngSubmit)="getStudentsFiltered()" (keypress.enter)="getStudentsFiltered()">
       <ion-item class="ion-margin">
         <ion-select formControlName="carrera" (ionChange)="getStudentsFiltered()" label="Carrera" placeholder="Selecciona Carrera"
-          interface="popover">
+          interface="action-sheet">
           <ion-select-option value="Todos">Todos</ion-select-option>
           <ion-select-option *ngFor="let carrera of carreras" value="{{ carrera }}">{{carrera}}</ion-select-option>
         </ion-select>
