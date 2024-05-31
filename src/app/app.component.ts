@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { TimerLoginService } from './services/timer-login.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,7 @@ import { Component, inject } from '@angular/core';
 })
 export class AppComponent {
   
-  constructor() {}
+  constructor(
+    private timerLogin: TimerLoginService,
+  ) {}
 }
