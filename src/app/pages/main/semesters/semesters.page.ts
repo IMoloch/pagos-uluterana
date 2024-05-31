@@ -15,6 +15,8 @@ export class SemestersPage implements OnInit {
 
   firebaseSvc = inject(FirebaseService)
   utilsSvc = inject(UtilsService)
+  loadingSemesters: boolean = true
+  loadingMonths: boolean = true
   user: User
   semesters: any[] = []
   months: Month[] = []
@@ -39,6 +41,7 @@ export class SemestersPage implements OnInit {
 
   // OBTENER LA LISTA DE CICLOS DE ESTUDIANTE
   getSemesters() {
+    this.loadingSemesters = true
     let path = `users/${this.user.uid}/semesters`
     let query = [
       orderBy('year','desc'),
@@ -49,12 +52,14 @@ export class SemestersPage implements OnInit {
       next: (res: any) => {
         this.semesters = res
         sub.unsubscribe()
+        this.loadingSemesters = false
       }
     })
   }
 
   // OBTENER MESES DEL USUARIO
   getMonths() {
+    this.loadingMonths = true
     let path = `users/${this.user.uid}/semesters/${this.form.value.semester}/payments`
     let query = [
       orderBy('dueDate','asc'),
@@ -65,6 +70,7 @@ export class SemestersPage implements OnInit {
         this.months = res
         sub.unsubscribe()
         this.getFee()
+        this.loadingMonths = false
       }
     })
   }

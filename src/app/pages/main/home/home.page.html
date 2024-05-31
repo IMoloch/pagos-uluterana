@@ -6,8 +6,22 @@
     <ion-card-header>
       <ion-card-title>Pagos próximos</ion-card-title>
     </ion-card-header>
-
-    <ion-card-content *ngIf="months.length">
+    <!-- SKELETON PLACEHOLDER WHILE LOADING -->
+    <ion-card-content *ngIf="loading">
+      <ion-list  *ngFor="let month of [0,0,0,0]">
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 35%"></ion-skeleton-text>
+          </ion-label>
+          <ion-thumbnail>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </ion-thumbnail>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+    <!-- SI HAY MESES PENDIENTES -->
+    <ion-card-content *ngIf="months.length && !loading">
       <ion-list  *ngFor="let month of months">
         <ion-item button="true" (click)="routerLink('/payment', month)">
           <ion-label>
@@ -18,10 +32,11 @@
         </ion-item>
       </ion-list>
     </ion-card-content>
-    <ion-item *ngIf="!months.length">
+    <!-- SI NO HAY MESES PENDIENTES -->
+    <ion-item *ngIf="!months.length && !loading">
       <ion-label class="ion-text-center">
         <ion-icon name="information-circle"></ion-icon>
-        No esta registrado en el ciclo actual
+        No hay pagos pendientes en el ciclo actual {{ semester.cycle }}-{{ semester.year }}
       </ion-label>
     </ion-item>
   </ion-card>

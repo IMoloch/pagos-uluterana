@@ -35,11 +35,21 @@
 
   <ion-card>
     <ion-card-header>
-      
       <ion-card-title><ion-icon name="card"></ion-icon>   Mis Tarjetas</ion-card-title>
     </ion-card-header>
-
-    <ion-card-content>
+    <!-- SKELETON PLACEHOLDER WHILE LOADING -->
+    <ion-card-content *ngIf="loading">
+      <ion-list  *ngFor="let month of [0,0]">
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 35%"></ion-skeleton-text>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+    <!-- CARD QUE LISTA LAS TARJETAS -->
+    <ion-card-content *ngIf="!loading">
       <!-- NO HAY TARJETAS REGISTRADAS -->
       <ion-label *ngIf="!cards.length" class="ion-text-center">
         <ion-icon name="information-circle"></ion-icon>

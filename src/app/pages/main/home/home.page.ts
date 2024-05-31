@@ -16,6 +16,7 @@ export class HomePage implements OnInit {
   utilsSvc = inject(UtilsService)
   user: User
   months: Month[] = []
+  loading: boolean = true
 
   currentDate: Date = new Date();
   semester = {
@@ -28,18 +29,15 @@ export class HomePage implements OnInit {
     this.user = this.utilsSvc.getFromLocalStorage('user')
     this.getMonths()
   }
-  
-  ionViewWillEnter() {
-    this.getMonths()
-  }
 
   routerLink(url: string, month: Month) {
     this.utilsSvc.setMonth( month as Month )
-    this.utilsSvc.routerLink(url)
+    this.utilsSvc.routerLink(url, true)
   }
 
   // OBTENER MESES DEL USUARIO
   getMonths() {
+    this.loading = true
     let path = `users/${this.user.uid}/semesters/${this.semester.cycle}-${this.semester.year}/payments`
     let query = [
       orderBy('dueDate','asc'),
@@ -51,6 +49,7 @@ export class HomePage implements OnInit {
         this.months = res
         sub.unsubscribe()
         this.getFee()
+        this.loading = false
       }
     })
   }
@@ -63,17 +62,5 @@ export class HomePage implements OnInit {
       }, 0)
       month.totalFee = totalFee
     })
-  }
-
-  async copyDocument() {
-    try {
-      await this.firebaseSvc.copyDocumentWithSubcollections(
-        'users/tTgIAas7xjJrvU3cc68E',
-        'users/T4XHqJgD4KTk2drb6haibK23IC92'
-      );
-      console.log('Document copied successfully');
-    } catch (error) {
-      console.error('Error copying document: ', error);
-    }
   }
 }

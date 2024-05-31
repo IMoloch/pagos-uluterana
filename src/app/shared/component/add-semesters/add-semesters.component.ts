@@ -142,7 +142,7 @@ export class AddSemestersComponent implements OnInit {
           this.firebaseSvc.setDocument(path, month as Month).then(async res => { })
         } else {
           let month: Month = {
-            dueDate: `${this.form.value.year}/${i + 2}/05`,
+            dueDate: `${this.form.value.year}/${i + 8}/05`,
             paid: false,
             charges: [
               {

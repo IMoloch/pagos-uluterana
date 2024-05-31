@@ -6,18 +6,32 @@
     <ion-item class="ion-margin">
       <ion-select formControlName="semester" (ionChange)="getMonths()" label="Ciclo" placeholder="Selecciona Ciclo"
         interface="popover" value="semester">
-        <ion-select-option *ngIf="!semesters.length" [value]="null">No posee ciclos registrados</ion-select-option>
+        <ion-select-option *ngIf="!semesters.length && !loadingSemesters" [value]="null">No posee ciclos registrados</ion-select-option>
         <ion-select-option *ngFor="let semester of semesters" value="{{ semester.id }}">{{semester.id}}</ion-select-option>
       </ion-select>
     </ion-item>
   </form>
-
+  <!-- CARD QUE LISTA LOS MESES -->
   <ion-card *ngIf="form.value.semester">
     <ion-card-header>
       <ion-card-title>Meses</ion-card-title>
     </ion-card-header>
-
-    <ion-card-content >
+    <!-- SKELETON PLACEHOLDER WHILE LOADING -->
+    <ion-card-content *ngIf="loadingMonths">
+      <ion-list  *ngFor="let month of [0,0,0,0,0]">
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+          </ion-label>
+          <ion-thumbnail slot="end">
+            <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+          </ion-thumbnail>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+    <!-- LISTADO DE MESES DEL CICLO SELECCIONADO -->
+    <ion-card-content *ngIf="!loadingMonths">
       <ion-list *ngFor="let month of months">
         <ion-accordion-group>
           <ion-accordion value="{{ month.id }}">
@@ -42,7 +56,7 @@
               <ion-label>
                 <p> Aun no se ha realizado el pago de este mes</p>
                 <p>Realizalo antes de: {{ month.dueDate | date }} para evitar mora</p>
-                <p>Pulsa poara realizar el pago</p>
+                <p>Pulsa para realizar el pago</p>
               </ion-label>
             </ion-item>
           </ion-accordion>
@@ -50,5 +64,4 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-
 </ion-content>

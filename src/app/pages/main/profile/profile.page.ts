@@ -17,6 +17,7 @@ export class ProfilePage implements OnInit {
   utilsSvc = inject(UtilsService)
   user: User
   cards: Card[] = []
+  loading: boolean = true
 
   form = new FormGroup({
     uid: new FormControl(''),
@@ -37,6 +38,7 @@ export class ProfilePage implements OnInit {
 
   // OBTENER EL LISTADO DE TARJETAS DEL USUARIO
   getCards() {
+    this.loading = true
     let path = `users/${this.user.uid}/cards`
     let query = []
 
@@ -44,6 +46,7 @@ export class ProfilePage implements OnInit {
       next: (res: any) => {
         this.cards = res
         sub.unsubscribe()
+        this.loading = false
       }
     })
   }
